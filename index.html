@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+    <head>
+        <title>requirejs入门（一）</title>
+        <meta charset="utf-8">
+
+        <!--<script id="shader-vs" type="x-shader/x-vertex">-->
+            <!--attribute vec3 aVertexPosition;-->
+            <!--attribute vec3 aVertexNormal;-->
+            <!--attribute vec4 aVertexColor;-->
+
+            <!--uniform mat4 uMVMatrix;-->
+            <!--uniform mat4 uPMatrix;-->
+            <!--uniform mat4 uNMatrix;-->
+
+            <!--uniform vec3 uLightPosition;-->
+            <!--uniform vec4 uLightAmbient;-->
+            <!--uniform vec4 uLightDiffuse;-->
+            <!--uniform vec4 uMaterialDiffuse;-->
+            <!--uniform bool uWireframe;-->
+            <!--uniform bool uPerVertexColor;-->
+            <!--varying vec4 vFinalColor;-->
+
+            <!--void main(void) {-->
+                <!--if (uWireframe) {-->
+                    <!--if (uPerVertexColor){-->
+                        <!--vFinalColor = aVertexColor;-->
+                    <!--}-->
+                    <!--else{-->
+                        <!--vFinalColor = uMaterialDiffuse;-->
+                    <!--}-->
+                <!--}-->
+                <!--else{-->
+                    <!--vec3 N = vec3(uNMatrix * vec4(aVertexNormal, 0.0));  // This is a vector w = 0;-->
+                    <!--vec3 L = normalize(-uLightPosition);                 // Given a light position, use the inverse is the direction (to the center of the world)-->
+                    <!--//L = vec3(uNMatrix*vec4(L,0.0));   // vector light direction-->
+
+                    <!--float lambertTerm = dot(N,-L);-->
+                    <!--if (lambertTerm <= 0.0) lambertTerm = 0.01;-->
+                    <!--vec4 Ia = uLightAmbient;-->
+                    <!--vec4 Id = uMaterialDiffuse * uLightDiffuse * lambertTerm;-->
+                    <!--vFinalColor = Ia + Id;-->
+                    <!--vFinalColor.a = 1.0; //alpha channel-->
+                <!--}-->
+
+                <!--//Transformed vertex position-->
+                <!--gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition,1.0); // vertex w=1-->
+            <!--}-->
+        <!--</script>-->
+
+        <!--<script id="shader-fs" type="x-shader/x-fragment">-->
+            <!--#ifdef GL_ES-->
+            <!--precision highp float;-->
+            <!--#endif-->
+
+            <!--varying vec4  vFinalColor;-->
+
+            <!--void main(void)  {-->
+             <!--gl_FragColor = vFinalColor;-->
+            <!--}-->
+        <!--</script>-->
+
+        <!-- Fragment Shader //-->
+        <script id="shader-fs" type="x-shader/x-fragment">
+            #ifdef GL_ES
+            precision highp float;
+            #endif
+            void main(void) {
+                gl_FragColor = vec4(0.5,0.5,1.0, 1.0);
+            }
+        </script>
+
+        <!-- Vertex Shader //-->
+        <script id="shader-vs" type="x-shader/x-vertex">
+            attribute vec3 aVertexPosition;
+
+            void main(void) {
+                gl_Position = vec4(aVertexPosition,1.0);
+            }
+        </script>
+
+        <script src="js/thirdparty/gl-matrix-min.js"></script>
+        <script data-main="main" src="require.js"></script>
+    </head>
+    <body>
+        <canvas id="canvas" width="680" height="680"></canvas>
+    </body>
+</html>
