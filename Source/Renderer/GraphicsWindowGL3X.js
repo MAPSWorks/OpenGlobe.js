@@ -1,7 +1,7 @@
 /**
  * Created by luosong on 2014/3/27.
  */
-define(['GraphicsWindow'],function(GraphicsWindow){
+define(['Renderer/GraphicsWindow'],function(GraphicsWindow){
 
     var GraphicsWindowGL3X = function(width, height, title){
 

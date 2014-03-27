@@ -2,7 +2,7 @@
  * Created by luosong on 2014/3/27.
  */
 
-define(['GraphicesWindowGL3X'],function(GraphicesWindowGL3X){
+define(['Renderer/GraphicesWindowGL3X'],function(GraphicesWindowGL3X){
 
     var Device = function(){
 
