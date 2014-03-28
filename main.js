@@ -31,6 +31,7 @@ function
 
     console.log(geodetic2d.Longitude,geodetic2d.Latitude);
     console.log(geodetic3d.getLongitude(),geodetic3d.getLatitude(),geodetic3d.getHeight());
+    console.log(geodetic3d.Longitude);
     console.log(ellipsoid.getRadii()[0],ellipsoid.getRadii()[1],ellipsoid.getRadii()[2]);
     console.log(ellipsoid.getMaximumRadius(),ellipsoid.getMinimumRadius());
 
