@@ -1,4 +1,4 @@
 OpenGlobejs
 ===========
 
-A Project was created to study OpenGlobe.
+A Project was created to study 3D Engine Design.
