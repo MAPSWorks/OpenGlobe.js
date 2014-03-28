@@ -23,11 +23,13 @@ function
 {
     var geodetic2d = new Geodetic2D(130,45);
     var geodetic3d = new Geodetic3D(133,55,100);
-
+    var vec3Position = vec3.create();
     var ellipsoid = Ellipsoid.Wgs84;
 
+    var t = ellipsoid.GeodeticSurfaceNormal(vec3Position);
 
-    console.log(geodetic2d.getLongitude(),geodetic2d.getLatitude());
+
+    console.log(geodetic2d.Longitude,geodetic2d.Latitude);
     console.log(geodetic3d.getLongitude(),geodetic3d.getLatitude(),geodetic3d.getHeight());
     console.log(ellipsoid.getRadii()[0],ellipsoid.getRadii()[1],ellipsoid.getRadii()[2]);
     console.log(ellipsoid.getMaximumRadius(),ellipsoid.getMinimumRadius());

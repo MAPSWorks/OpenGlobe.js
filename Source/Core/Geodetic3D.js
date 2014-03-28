@@ -1,7 +1,7 @@
 /**
  * Created by luosong on 2014/3/27.
  */
-define(['Core/Geodetic2D'],function(Geodetic2D){
+define(['Core/defineProperties','Core/Geodetic2D'],function(defineProperties,Geodetic2D){
 
     var Geodetic3D = function(longitude, latitude, height){
         this._longitude = longitude;
@@ -27,6 +27,22 @@ define(['Core/Geodetic2D'],function(Geodetic2D){
             (this._latitude === other._latitude) &&
             (this._height === other.height);
     };
+
+
+    defineProperties(Geodetic3D.prototype,{
+        Longitude : {
+            get : function(){
+                return this._longitude;
+            }
+        },
+
+        Latitude : {
+            get : function(){
+                return this._latitude;
+            }
+        }
+    });
+
 
     return Geodetic3D;
 

@@ -1,7 +1,7 @@
 /**
  * Created by luosong on 2014/3/27.
  */
-define(function(){
+define(['Core/defineProperties'],function(defineProperties){
 
     var Geodetic2D = function(longitude, latitude){
         this._longitude = longitude;
@@ -27,7 +27,19 @@ define(function(){
 
 
 
+    defineProperties(Geodetic2D.prototype,{
+        Longitude : {
+            get : function(){
+                return this._longitude;
+            }
+        },
 
+        Latitude : {
+            get : function(){
+                return this._latidude;
+            }
+        }
+    });
 
     return Geodetic2D;
 });
