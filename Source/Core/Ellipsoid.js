@@ -43,7 +43,7 @@ define(['Core/defineProperties','Core/Geodetic2D','Core/Geodetic3D'],function(de
         if(t){
             var geodetic = position;
             var cosLatitude = Math.cos(geodetic.getLatitude());
-            var out = vec3.create(
+            var out = vec3.fromValues(
                 cosLatitude * Math.cos(geodetic.getLongitude()),
                 cosLatitude * Math.sin(geodetic.getLongitude()),
                 Math.sin(geodetic.getLatitude())
@@ -76,7 +76,7 @@ define(['Core/defineProperties','Core/Geodetic2D','Core/Geodetic3D'],function(de
 
     Ellipsoid.prototype.GeodeticSurfaceNormal_Geo = function(geodetic){
         var cosLatitude = Math.cos(geodetic.getLatitude());
-        var out = vec3.create(
+        var out = vec3.fromValues(
             cosLatitude * Math.cos(geodetic.getLongitude()),
             cosLatitude * Math.sin(geodetic.getLongitude()),
             Math.sin(geodetic.getLatitude())
