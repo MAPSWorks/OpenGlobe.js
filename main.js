@@ -9,6 +9,7 @@ require.config({
 require(
 [
     'jquery',
+    'Core/Vector3D',
     'Core/Geodetic2D',
     'Core/Geodetic3D',
     'Core/Ellipsoid'
@@ -16,6 +17,7 @@ require(
 function
 (
     $,
+    Vector3D,
     Geodetic2D,
     Geodetic3D,
     Ellipsoid
@@ -28,12 +30,14 @@ function
 
     var t = ellipsoid.GeodeticSurfaceNormal(vec3Position);
 
+    var v3 = new Vector3D(1,2,3);
+    var vv = v3.Normalize();
 
     console.log(geodetic2d.Longitude,geodetic2d.Latitude);
     console.log(geodetic3d.getLongitude(),geodetic3d.getLatitude(),geodetic3d.getHeight());
     console.log(geodetic3d.Longitude);
-    console.log(ellipsoid.getRadii()[0],ellipsoid.getRadii()[1],ellipsoid.getRadii()[2]);
-    console.log(ellipsoid.getMaximumRadius(),ellipsoid.getMinimumRadius());
+    console.log(ellipsoid.Radii[0],ellipsoid.Radii[1],ellipsoid.Radii[2]);
+    console.log(ellipsoid.MaximumRadius,ellipsoid.MinimumRadius);
 
     console.log('ok.');
 });
