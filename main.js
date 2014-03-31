@@ -12,7 +12,8 @@ require(
     'Core/Vector3D',
     'Core/Geodetic2D',
     'Core/Geodetic3D',
-    'Core/Ellipsoid'
+    'Core/Ellipsoid',
+    'Renderer/RenderState'
 ],
 function
 (
@@ -20,7 +21,8 @@ function
     Vector3D,
     Geodetic2D,
     Geodetic3D,
-    Ellipsoid
+    Ellipsoid,
+    RenderState
 )
 {
     var geodetic2d = new Geodetic2D(130,45);
@@ -28,10 +30,16 @@ function
     var vec3Position = vec3.create();
     var ellipsoid = Ellipsoid.Wgs84;
 
-    var t = ellipsoid.GeodeticSurfaceNormal(vec3Position);
+    var v3 = new Vector3D(122,55,100);
+
+    var t = ellipsoid.GeodeticSurfaceNormal(v3);
 
     var v3 = new Vector3D(1,2,3);
     var vv = v3.Normalize();
+
+    var rs = new RenderState();
+
+    rs.DepthMask = false;
 
     console.log(geodetic2d.Longitude,geodetic2d.Latitude);
     console.log(geodetic3d.getLongitude(),geodetic3d.getLatitude(),geodetic3d.getHeight());
