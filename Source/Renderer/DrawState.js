@@ -3,10 +3,14 @@
  */
 define([
     'Core/defineProperties',
-    'Renderer/RenderState'
+    'Renderer/RenderState',
+    'Renderer/ShaderProgram',
+    'Renderer/VertexArray'
 ],function(
     defineProperties,
-    RenderState
+    RenderState,
+    ShaderProgram,
+    VertexArray
     )
 {
     'use strict';

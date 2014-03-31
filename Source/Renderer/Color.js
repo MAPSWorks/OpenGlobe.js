@@ -19,6 +19,10 @@ define(['Core/defineProperties'],function(defineProperties){
         return new Color(r,g,b,a);
     };
 
+    Color.White = function(){
+        return new Color(255,255,255,255);
+    };
+
     defineProperties(Color.prototype,{
         R : {
             get : function(){
