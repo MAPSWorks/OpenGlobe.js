@@ -7,6 +7,7 @@ define([
     'Renderer/FacetCulling',
     'Renderer/ProgramPointSize',
     'Renderer/RasterizationMode',
+    'Renderer/ScissorTest',
     'Renderer/StencilTest',
     'Renderer/DepthTest',
     'Renderer/DepthRange',
@@ -18,6 +19,7 @@ define([
     FacetCulling,
     ProgramPointSize,
     RasterizationMode,
+    ScissorTest,
     StencilTest,
     DepthTest,
     DepthRange,
@@ -33,8 +35,8 @@ define([
         this._programPointSize = ProgramPointSize.Disabled;
 
         this._rasterizationMode = RasterizationMode.Fill;
-        //TODO not implement
-        this._scissorTest = null;
+
+        this._scissorTest = new ScissorTest();
 
         this._stencilTest = new StencilTest();
 
