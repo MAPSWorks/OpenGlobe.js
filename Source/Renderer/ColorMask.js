@@ -10,7 +10,7 @@ define(['Core/defineProperties'],function(defineProperties){
         this._b = b;
         this._a = a;
     };
-    defineProperties(Color.prototype,{
+    defineProperties(ColorMask.prototype,{
         Red : {
             get : function(){
                 return this._r;

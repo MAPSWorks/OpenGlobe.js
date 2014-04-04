@@ -9,7 +9,7 @@ define(['Core/defineProperties','Renderer/DepthTestFunction'],function(definePro
         this._function = DepthTestFunction.Less;
     };
 
-    defineProperties(StencilTest.prototype,{
+    defineProperties(DepthTest.prototype,{
         Enabled : {
             get : function(){
                 return this._enabled;

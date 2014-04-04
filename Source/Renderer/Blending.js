@@ -27,7 +27,7 @@ define([
 
     };
 
-    defineProperties(StencilTest.prototype,{
+    defineProperties(Blending.prototype,{
         Enabled : {
             get : function(){
                 return this._enabled;

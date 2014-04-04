@@ -8,7 +8,7 @@ define(function(){
     };
 
     Enumeration.prototype.valueOf = function(){
-        return return this._value;
+        return this._value;
     };
 
     Enumeration.prototype.toString = function(){

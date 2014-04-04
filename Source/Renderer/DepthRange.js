@@ -9,7 +9,7 @@ define(['Core/defineProperties'],function(defineProperties){
         this._far = 1.0;
     };
 
-    defineProperties(StencilTest.prototype,{
+    defineProperties(DepthRange.prototype,{
         Near : {
             get : function(){
                 return this._near;

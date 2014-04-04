@@ -77,6 +77,6 @@ define(['Core/Enumeration',
         }
     });
 
-
+    return StencilTestFace;
 
 });

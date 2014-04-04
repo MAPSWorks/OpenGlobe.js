@@ -13,7 +13,8 @@ require(
     'Core/Geodetic2D',
     'Core/Geodetic3D',
     'Core/Ellipsoid',
-    'Renderer/RenderState'
+    'Renderer/RenderState',
+    'Renderer/Device'
 ],
 function
 (
@@ -22,9 +23,17 @@ function
     Geodetic2D,
     Geodetic3D,
     Ellipsoid,
-    RenderState
+    RenderState,
+    Device
 )
 {
+    var device = new Device("canvas");
+    var window = device.CreateWindow(800,900,'tttt');
+    var shaderProgram = device.CreateProgramFromID("shader-vs","shader-fs");
+
+    window.Run(60);
+
+
     var geodetic2d = new Geodetic2D(130,45);
     var geodetic3d = new Geodetic3D(133,55,100);
     var vec3Position = vec3.create();
