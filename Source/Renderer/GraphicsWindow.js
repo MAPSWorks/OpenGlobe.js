@@ -74,14 +74,14 @@ define(['Core/defineProperties'],function(defineProperties){
     }
 
     GraphicsWindow.prototype.OnUpdateFrame = function(){
-        console.log('Update Frame');
+        //console.log('Update Frame');
         if(this.UpdateFrameHandler !== null){
             this.UpdateFrameHandler();
         }
     }
 
     GraphicsWindow.prototype.OnPreRenderFrame = function(){
-        console.log('Pre  Render');
+        //console.log('Pre  Render');
         if(this.PreRenderFrameHandler !== null){
             this.PreRenderFrameHandler();
         }
@@ -95,7 +95,7 @@ define(['Core/defineProperties'],function(defineProperties){
     }
 
     GraphicsWindow.prototype.OnPostRenderFrame = function(){
-        console.log('Post Render');
+        //console.log('Post Render');
         if(this.PostRenderFrameHandler !== null){
             this.PostRenderFrameHandler();
         }
