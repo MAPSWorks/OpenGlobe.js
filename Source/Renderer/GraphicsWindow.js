@@ -1,7 +1,13 @@
 /**
  * Created by luosong on 2014/3/27.
  */
-define(['Core/defineProperties'],function(defineProperties){
+define([
+    'Core/defineProperties',
+    'Renderer/Context'
+],function(
+    defineProperties,
+    Context
+    ){
     'use strict';
 
     var GraphicsWindow = function(gl, width, height, title){
@@ -13,7 +19,7 @@ define(['Core/defineProperties'],function(defineProperties){
         this.RenderFrameHandler = null;
         this.PostRenderFrameHandler = null;
 
-        this._context = gl;
+        this._context = new Context(gl, width, height);
         this._width = width;
         this._height = height;
         this._title = title;
@@ -88,7 +94,6 @@ define(['Core/defineProperties'],function(defineProperties){
     }
 
     GraphicsWindow.prototype.OnRenderFrame = function(){
-        console.log('On Render');
         if(this.RenderFrameHandler !== null){
             this.RenderFrameHandler();
         }

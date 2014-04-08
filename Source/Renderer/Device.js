@@ -54,8 +54,6 @@ function(
         return str;
     };
 
-
-
     Device.prototype.getContext = function(canvasName){
         this._canvas = document.getElementById(canvasName);
         this._context = this._canvas.getContext('experimental-webgl');
