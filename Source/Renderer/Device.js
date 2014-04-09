@@ -14,8 +14,7 @@ function(
 
     var Device = function(canvasName){
         this._canvas = null;
-        this._context = null;
-
+        this._context = null;       //this is a gl context, not class context
         this.getContext(canvasName);
 
 
@@ -59,6 +58,10 @@ function(
         this._context = this._canvas.getContext('experimental-webgl');
 
     };
+
+    ///////////////////////////////////////////////
+
+
 
 
     return Device;

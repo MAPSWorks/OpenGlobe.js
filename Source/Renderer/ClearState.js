@@ -26,7 +26,7 @@ define([
         this._backStencilMask =  ~0;
 
         this._buffers = ClearBuffers.All;
-        this._color = Color.White();
+        this._color = Color.Black();
         this._depth = 1;
         this._stencil = 0;
     };

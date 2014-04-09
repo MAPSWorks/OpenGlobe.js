@@ -27,7 +27,7 @@ define([
         this.Mouse = null;
         this.Keyboard = null;
 
-    }
+    };
 
     defineProperties(GraphicsWindow.prototype,{
         Context:{
