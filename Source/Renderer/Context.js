@@ -193,15 +193,17 @@ define([
 
         //TODO
         var gl = this._gl;
-
+        gl.viewport(0, 0, 680, 680);
         var vertexArray = drawState.VertexArray;
         var indexBuffer = vertexArray.IndexBuffer;
 
         if(indexBuffer !== null){
-            gl.drawElements(gl.Triangles,3,gl.UNSIGNED_SHORT,0);
+            gl.drawElements(gl.TRIANGLES, 3, gl.UNSIGNED_SHORT, 0);
         }else{
-            //
+            //gl.drawArrays(gl.TRIANGLES, 0, 3);
         }
+
+
 
     };
 

@@ -55,7 +55,7 @@ function
 
         this._sceneState = new SceneState();
         this._clearState = new ClearState();
-        this._clearState.Color = Color.FromRgba(0.5,0.5,0.5,1.0);
+        this._clearState.Color = Color.FromRgba(0.0,0.0,0.0,1.0);
 
 
         this._window.RenderFrameHandler = (function(that){
