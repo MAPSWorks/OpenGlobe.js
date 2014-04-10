@@ -11,7 +11,7 @@ define([
     'use strict';
 
     var Camera  = function(){
-        this._eye = Vector3D.UnitY().negate();
+        this._eye = Vector3D.UnitY().Negate();
         this._target = Vector3D.Zero();
         this._up = Vector3D.UnitZ();
 
@@ -195,7 +195,7 @@ define([
         var sin = Math.sin(Math.min(this.FieldOfViewX,this.FieldOfViewY) * 0.5);
         var distance = (radius / sin);
 
-        this.Eye = this.Target + (toEye.Multiply(distance));
+        this.Eye = this.Target.Add(toEye.Multiply(distance));
     };
 
     Camera.prototype.height = function(ellipsoid){

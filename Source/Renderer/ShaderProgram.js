@@ -2,8 +2,10 @@
  * Created by luosong on 2014/4/1.
  */
 define([
+    'Core/defineProperties',
     'Renderer/Device'
 ],function(
+    defineProperties,
     Device
     )
 {
@@ -21,6 +23,14 @@ define([
         this.initProgram(this._vertexShader,this._fragmentShader);
 
     };
+
+    defineProperties(ShaderProgram.prototype,{
+        VertexAttributes:{
+            get : function(){
+                return this._vertexAttributes;
+            }
+        }
+    });
 
     ShaderProgram.prototype.initVertexShader = function(vertexShaderSource){
         var gl = this._gl;
@@ -95,8 +105,10 @@ define([
 
             var attributeLocation = gl.getAttribLocation(program,name);
             vertexAttributes.push({
-                attribInfo: attrib,
-                attribLocation: attributeLocation
+                Info: attrib,
+                Name : name,
+                Type : type,
+                Location: attributeLocation
             });
         }
 

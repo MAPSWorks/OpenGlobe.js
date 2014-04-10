@@ -20,7 +20,28 @@ define(['Core/defineProperties'],function(defineProperties){
     };
 
     Color.White = function(){
-        return new Color(255,255,255,255);
+        return new Color(1.0,1.0,1.0,1.0);
+    };
+
+    Color.Black = function(){
+        return new Color(0.0,0.0,0.0,1.0);
+    };
+
+    Color.Equals = function(left, right){
+        if(left.R != right.R){
+            return false;
+        }
+        if(left.G != right.G){
+            return false;
+        }
+        if(left.B != right.B){
+            return false;
+        }
+        if(left.A != right.A){
+            return false;
+        }
+
+        return true;
     };
 
     defineProperties(Color.prototype,{
