@@ -107,6 +107,7 @@ define([
             vertexAttributes.push({
                 Info: attrib,
                 Name : name,
+                Type : type,
                 Location: attributeLocation
             });
         }

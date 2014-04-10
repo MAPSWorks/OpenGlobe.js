@@ -2,14 +2,15 @@
  * Created by luosong on 2014/4/9.
  */
 define([
-    'Core/defineProperties'
+    'Core/defineProperties',
+    'Renderer/VertexBufferAttribute'
 ],function(
     defineProperties
     ){
    'use strict';
 
     var VertexArray = function(){
-        this._attributes = [];
+        this._attributes = [];      //VertexBufferAttribute
         this._indexBuffer = null;
     };
 

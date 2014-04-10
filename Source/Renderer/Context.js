@@ -8,7 +8,9 @@ define([
     'Renderer/ClearBuffers',
     'Renderer/ClearState',
     'Renderer/Device',
-    'Renderer/VertexArray'
+    'Renderer/VertexArray',
+    'Renderer/VertexBufferAttribute',
+    'Renderer/Type'
 ],function(
     defineProperties,
     Color,
@@ -16,7 +18,9 @@ define([
     ClearBuffers,
     ClearState,
     Device,
-    VertexArray
+    VertexArray,
+    VertexBufferAttribute,
+    Type
     ){
    'use strict';
 
@@ -26,15 +30,19 @@ define([
         this._viewport = new Rectangle(0, 0, width, height);
 
 
-        this._clearColor = Color.FromArgb(
-            1.0,0,0,0
-        );
+        this._clearColor = Color.FromArgb(1.0,0,0,0 );
         this._clearDepth = 1.0;
         this._clearStencil = 0.0;
 
-        this._gl.clearColor(0.0,0.0,0.0,1.0);
-        this._gl.clearDepth(1.0);
-        this._gl.clearStencil(0.0);
+        this._boundShaderProgram = null;
+
+
+
+
+
+        this._gl.clearColor(this._clearColor.R,this._clearColor.G,this._clearColor.B,this._clearColor.A);
+        this._gl.clearDepth(this._clearDepth);
+        this._gl.clearStencil(this._clearStencil);
 
     };
 
@@ -57,25 +65,6 @@ define([
             meshBuffers.IndexBuffer = indexBuffer;
         }
 
-//        var meshAttributes = mesh.Attributes;
-//        for(var i = 0; i < meshAttributes.length; i++){
-//            //TODO
-//            //for now, only deal with vertices(Vector3D)
-//            var meshAttribute = meshAttributes[i];
-//            var name = meshAttribute.Name;
-//            var values = meshAttribute.Values;  //[Vector3D,Vector3D,...]
-//            var vertices = [];
-//            for(var k = 0; k < values.length; k++){
-//                vertices.push(values[k].X);
-//                vertices.push(values[k].Y);
-//                vertices.push(values[k].Z);
-//            }
-//
-//            var verticesBuffer = this.CreateVertexBuffer(vertices,usageHint);
-//            meshBuffers.Attributes[i] = verticesBuffer;
-//
-//        }
-
         for(var i = 0; i < shaderAttributes.length; i++){
             var shaderAttribute = shaderAttributes[i];
 
@@ -95,8 +84,11 @@ define([
             }
 
             var verticesBuffer = this.CreateVertexBuffer(vertices,usageHint);
-            meshBuffers.Attributes[shaderAttribute.Location] = verticesBuffer;
-
+            var vba = new VertexBufferAttribute();
+            vba.Location = shaderAttribute.Location;
+            vba.Buffer = verticesBuffer;
+            vba.Type = shaderAttribute.Type;
+            meshBuffers.Attributes.push(vba);
         }
 
 
@@ -110,7 +102,10 @@ define([
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,indexBuffer);
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
 
-        return indexBuffer;
+        return {
+            Count : indices.length,
+            IndexBuffer : indexBuffer
+        };
 
     };
 
@@ -198,7 +193,7 @@ define([
         var indexBuffer = vertexArray.IndexBuffer;
 
         if(indexBuffer !== null){
-            gl.drawElements(gl.TRIANGLES, 3, gl.UNSIGNED_SHORT, 0);
+            gl.drawElements(gl.TRIANGLES, indexBuffer.Count, gl.UNSIGNED_SHORT, 0);
         }else{
             //gl.drawArrays(gl.TRIANGLES, 0, 3);
         }
@@ -222,23 +217,52 @@ define([
 
     };
 
+    Context.prototype.GetAttributeSize = function(type){
+        if(type == Type.FLOAT_VEC3){
+            return 3;
+        }else if(type == Type.FLOAT_VEC4){
+            return 4;
+        }else if(type == Type.FLOAT_VEC2){
+            return 2;
+        }
+
+        return 0;
+    };
+
     Context.prototype.ApplyVertexArray = function(vertexArray){
         var gl = this._gl;
 
-        gl.bindBuffer(gl.ARRAY_BUFFER,vertexArray.Attributes[0]);
-        gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
+        var attributes = vertexArray.Attributes;
+        for(var i = 0; i < attributes.length; i++){
+
+            var attribute = attributes[i];
+            var type = attribute.Type;
+            var size = this.GetAttributeSize(type);
+
+            gl.bindBuffer(gl.ARRAY_BUFFER,attribute.Buffer);
+            gl.vertexAttribPointer      (attribute.Location, size, gl.FLOAT, false, 0, 0);
+            gl.enableVertexAttribArray  (attribute.Location);
+        }
 
         var indexBuffer = vertexArray.IndexBuffer;
         if(indexBuffer !== null){
-            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer.IndexBuffer);
         }
 
     };
 
     Context.prototype.ApplyShaderProgram = function(drawState, sceneState){
         var gl = this._gl;
-        gl.useProgram(drawState.ShaderProgram._program);
-        gl.enableVertexAttribArray(0);
+
+        var program = drawState.ShaderProgram._program;
+
+        if(this._boundShaderProgram != program){
+            gl.useProgram(program);
+            this._boundShaderProgram = program;
+        }
+
+
+
 
     };
 

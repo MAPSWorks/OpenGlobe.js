@@ -80,8 +80,12 @@ function
         positions.push(new Vector3D(0,0,0));
         positions.push(new Vector3D(1,0,0));
         positions.push(new Vector3D(0,1,0));
+        positions.push(new Vector3D(0,0,0));
+        positions.push(new Vector3D(-1,0,0));
+        positions.push(new Vector3D(0,-1,0));
 
         indices.AddTriangle(0,1,2);
+        indices.AddTriangle(3,4,5);
 
         var va = this._window.Context.CreateVertexArray(mesh,shaderProgram.VertexAttributes,BufferHint.StaticDraw);
 

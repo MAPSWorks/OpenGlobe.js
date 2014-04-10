@@ -10,6 +10,7 @@ define([
     ){
     'use strict';
 
+    //for user
     var VertexAttribute = function(name){
         this._name = name;
         this._values = [];  //Vector3D
