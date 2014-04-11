@@ -261,7 +261,7 @@ define([
             this._boundShaderProgram = program;
         }
 
-
+        drawState.ShaderProgram.clean(gl,drawState,sceneState);
 
 
     };

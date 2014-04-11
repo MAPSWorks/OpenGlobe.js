@@ -3,10 +3,18 @@
  */
 define([
     'Core/defineProperties',
-    'Renderer/Device'
+    'Renderer/Type',
+    'Renderer/Uniform/Uniform',
+    'Renderer/Uniform/UniformFloat',
+    'Renderer/Uniform/UniformFloatVec3',
+    'Renderer/ShaderProgramBase'
 ],function(
     defineProperties,
-    Device
+    Type,
+    Uniform,
+    UniformFloat,
+    UniformFloatVec3,
+    ShaderProgramBase
     )
 {
     'use strict';
@@ -23,6 +31,9 @@ define([
         this.initProgram(this._vertexShader,this._fragmentShader);
 
     };
+
+    ShaderProgram.prototype = new ShaderProgramBase();
+    ShaderProgram.prototype.constructor = ShaderProgram;
 
     defineProperties(ShaderProgram.prototype,{
         VertexAttributes:{
@@ -129,10 +140,8 @@ define([
             }
 
             var uniformLocation = gl.getUniformLocation(program,name);
-            uniforms.push({
-                uniformInfo: unifInfo,
-                uniformLocation: uniformLocation
-            });
+            var u = this.createUniform(name,unifInfo.type,uniformLocation);
+            uniforms.push(u);
         }
 
         return uniforms;
@@ -151,14 +160,29 @@ define([
         return str.indexOf(suffix, str.length - suffix.length) !== -1;
     };
 
-    ShaderProgram.prototype.initializeAutomaticUniforms = function(uniforms){
-        //TODO
-        return;
-        for(var i = 0; i < uniforms.length; i++){
-            var uniform = uniforms[1];
+    ShaderProgram.prototype.createUniform = function(name,type,location){
+        return new Uniform(name,type,location);
+
+        switch (type){
+            case Type.FLOAT:
+                return new UniformFloat(name,type,location);
+            case Type.FLOAT_VEC2:
+            case Type.FLOAT_VEC3:
+                return new UniformFloatVec3(name,type,location);
+            case Type.FLOAT_VEC4:
+            case Type.FLOAT_MAT2:
+            case Type.FLOAT_MAT3:
+            case Type.FLOAT_MAT4:
+                return 2;
         }
+
+        throw new Error("A new Uniform derived class needs to be added to support this uniform type " + type);
     };
 
+
+    ShaderProgram.prototype.clean = function(gl,drawState,sceneState){
+        this.setDrawAutomaticUniforms(gl,drawState,sceneState);
+    };
 
     return ShaderProgram;
 });
