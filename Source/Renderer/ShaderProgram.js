@@ -5,15 +5,19 @@ define([
     'Core/defineProperties',
     'Renderer/Type',
     'Renderer/Uniform/Uniform',
+    'Renderer/Uniform/UniformBool',
     'Renderer/Uniform/UniformFloat',
     'Renderer/Uniform/UniformFloatVec3',
+    'Renderer/Uniform/UniformFloatMatrix44',
     'Renderer/ShaderProgramBase'
 ],function(
     defineProperties,
     Type,
     Uniform,
+    UniformBool,
     UniformFloat,
     UniformFloatVec3,
+    UniformFloatMatrix44,
     ShaderProgramBase
     )
 {
@@ -161,9 +165,11 @@ define([
     };
 
     ShaderProgram.prototype.createUniform = function(name,type,location){
-        return new Uniform(name,type,location);
+        //return new Uniform(name,type,location);
 
         switch (type){
+            case Type.BOOL:
+                return new UniformBool(name,type,location);
             case Type.FLOAT:
                 return new UniformFloat(name,type,location);
             case Type.FLOAT_VEC2:
@@ -173,15 +179,15 @@ define([
             case Type.FLOAT_MAT2:
             case Type.FLOAT_MAT3:
             case Type.FLOAT_MAT4:
-                return 2;
+                return new UniformFloatMatrix44(name,type,location);
         }
 
         throw new Error("A new Uniform derived class needs to be added to support this uniform type " + type);
     };
 
 
-    ShaderProgram.prototype.clean = function(gl,drawState,sceneState){
-        this.setDrawAutomaticUniforms(gl,drawState,sceneState);
+    ShaderProgram.prototype.clean = function(context,drawState,sceneState){
+        this.setDrawAutomaticUniforms(context,drawState,sceneState);
     };
 
     return ShaderProgram;

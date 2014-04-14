@@ -12,9 +12,9 @@ define(['Renderer/Uniform/Uniform'],function(Uniform){
         this.Value = null;
     };
 
-    UniformFloat.prototype = new Uniform();
-    UniformFloat.prototype.constructor = UniformFloat;
-
+    UniformFloat.prototype.Set = function(gl){
+        gl.uniform1f(this.Location,this.Value);
+    };
 
     return UniformFloat;
 });

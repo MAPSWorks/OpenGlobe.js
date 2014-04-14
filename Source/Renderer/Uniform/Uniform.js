@@ -12,6 +12,10 @@ define([],function(){
         this.Value = null;
     };
 
+    Uniform.prototype.Set = function(gl){
+        throw new Error('Uniform no defined.');
+    };
+
 
 
     return Uniform;

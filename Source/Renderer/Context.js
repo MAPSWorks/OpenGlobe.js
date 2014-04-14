@@ -46,6 +46,23 @@ define([
 
     };
 
+    defineProperties(Context.prototype,{
+        GL : {
+           get : function(){
+               return this._gl;
+           }
+        },
+
+        Viewport : {
+            get : function(){
+                return this._viewport;
+            },
+            set : function(x){
+                this._viewport = x;
+            }
+        }
+    });
+
     Context.prototype.CreateMeshBuffers = function(mesh,shaderAttributes,usageHint){
         var meshBuffers = {
             IndexBuffer : null,
@@ -261,7 +278,7 @@ define([
             this._boundShaderProgram = program;
         }
 
-        drawState.ShaderProgram.clean(gl,drawState,sceneState);
+        drawState.ShaderProgram.clean(this,drawState,sceneState);
 
 
     };
