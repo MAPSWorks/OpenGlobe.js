@@ -13,7 +13,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
         this._uniform.Value = sceneState.SunPosition.ToArray();
 
         //gl.uniform3fv(this._uniform.Location,this._uniform.Value.ToArray());
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
 
     };
 
@@ -27,7 +27,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
             sceneState.AmbientIntensity,
             sceneState.Shininess
         ];
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
 
     };
 
@@ -36,7 +36,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     CameraLightPosition.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.CameraLightPosition.ToArray();
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var CameraEye = function(uniform){
@@ -44,7 +44,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     }
     CameraEye.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.Camera.Eye.ToArray();
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var CameraEyeHigh = function(uniform){
@@ -52,7 +52,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     CameraEyeHigh.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.Camera.EyeHigh.ToArray();
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var CameraEyeLow = function(uniform){
@@ -60,7 +60,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     CameraEyeLow.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.Camera.EyeLow.ToArray();
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var ModelViewPerspectiveMatrixRelativeToEye = function(uniform){
@@ -68,7 +68,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     ModelViewPerspectiveMatrixRelativeToEye.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.ModelViewPerspectiveMatrixRelativeToEye.ReadOnlyColumnMajorValues;
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var ModelViewMatrixRelativeToEye = function(uniform){
@@ -76,7 +76,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     ModelViewMatrixRelativeToEye.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.ModelViewMatrixRelativeToEye.ReadOnlyColumnMajorValues;
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var ModelViewPerspectiveMatrix = function(uniform){
@@ -84,7 +84,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     ModelViewPerspectiveMatrix.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.ModelViewPerspectiveMatrix.ReadOnlyColumnMajorValues;
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var ModelViewOrthographicMatrix = function(uniform){
@@ -92,7 +92,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     ModelViewOrthographicMatrix.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.ModelViewOrthographicMatrix.ReadOnlyColumnMajorValues;
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var ModelViewMatrix = function(uniform){
@@ -100,7 +100,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     ModelViewMatrix.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.ModelViewMatrix.ReadOnlyColumnMajorValues;
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var ModelMatrix = function(uniform){
@@ -108,7 +108,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     ModelMatrix.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.ModelMatrix.ReadOnlyColumnMajorValues;
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var ViewMatrix = function(uniform){
@@ -116,7 +116,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     ViewMatrix.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.ViewMatrix.ReadOnlyColumnMajorValues;
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var PerspectiveMatrix = function(uniform){
@@ -124,7 +124,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     PerspectiveMatrix.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.PerspectiveMatrix.ReadOnlyColumnMajorValues;
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var OrthographicMatrix = function(uniform){
@@ -132,7 +132,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     OrthographicMatrix.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.OrthographicMatrix.ReadOnlyColumnMajorValues;
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var ViewportOrthographicMatrix = function(uniform){
@@ -140,7 +140,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     ViewportOrthographicMatrix.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.ViewportOrthographicMatrix.ReadOnlyColumnMajorValues;
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var Viewport = function(uniform){
@@ -149,7 +149,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     Viewport.prototype.Set = function(context,drawState,sceneState){
         var viewport = context.Viewport;
         this._uniform.Value = [viewport.Left,viewport.Top,viewport.Width,viewport.Height];
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var InverseViewportDimensions = function(uniform){
@@ -158,15 +158,27 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     InverseViewportDimensions.prototype.Set = function(context,drawState,sceneState){
         var viewport = context.Viewport;
         this._uniform.Value = [1/viewport.Width,1/viewport.Height];
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
+
+    var ViewportTransformationMatrix = function(uniform){
+        this._uniform = uniform;
+    };
+    ViewportTransformationMatrix.prototype.Set = function(context,drawState,sceneState){
+        this._uniform.Value = sceneState.ComputeViewportTransformationMatrix(
+            context.Viewport,
+            drawState.RenderState.DepthRange.Near,
+            drawState.RenderState.DepthRange.Far
+        ).ReadOnlyColumnMajorValues;
+        //this._uniform.Set(context.GL);
+    }
 
     var ModelZToClipCoordinates = function(uniform){
         this._uniform = uniform;
     };
     ModelZToClipCoordinates.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.ModelZToClipCoordinates.ReadOnlyColumnMajorValues;
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var WindowToWorldNearPlane = function(uniform){
@@ -193,7 +205,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
             0.0,     0.0,     0.0, 1.0
         ).ReadOnlyColumnMajorValues;
 
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var Wgs84Height = function(uniform){
@@ -201,7 +213,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     Wgs84Height.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.Camera.height(Ellipsoid.Wgs84);
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var PerspectiveNearPlaneDistance = function(uniform){
@@ -209,7 +221,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     PerspectiveNearPlaneDistance.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.Camera.PerspectiveNearPlaneDistance;
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var PerspectiveFarPlaneDistance = function(uniform){
@@ -217,7 +229,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     PerspectiveFarPlaneDistance.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.Camera.PerspectiveFarPlaneDistance;
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var HighResolutionSnapScale = function(uniform){
@@ -225,7 +237,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     HighResolutionSnapScale.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = sceneState.Camera.HighResolutionSnapScale;
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     var PixelSizePerDistance = function(uniform){
@@ -233,7 +245,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     };
     PixelSizePerDistance.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = Math.tan(0.5 * sceneState.Camera.FieldOfViewY) * 2.0 / context.Viewport.Height;
-        this._uniform.Set(context.GL);
+        //this._uniform.Set(context.GL);
     };
 
     DrawAutomaticUniform['SunPosition']         = SunPosition;
@@ -254,6 +266,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     DrawAutomaticUniform['ViewportOrthographicMatrix'] = ViewportOrthographicMatrix;
     DrawAutomaticUniform['Viewport']            = Viewport;
     DrawAutomaticUniform['InverseViewportDimensions'] = InverseViewportDimensions;
+    DrawAutomaticUniform['ViewportTransformationMatrix'] = ViewportTransformationMatrix;
     DrawAutomaticUniform['ModelZToClipCoordinates'] = ModelZToClipCoordinates;
     DrawAutomaticUniform['WindowToWorldNearPlane']  = WindowToWorldNearPlane;
     DrawAutomaticUniform['Wgs84Height']         = Wgs84Height;

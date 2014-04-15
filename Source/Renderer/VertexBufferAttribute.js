@@ -30,10 +30,10 @@ define([
 
         Buffer : {
             get : function(){
-                return this._location;
+                return this._buffer;
             },
             set : function(x){
-                this._location = x;
+                this._buffer = x;
             }
         },
 

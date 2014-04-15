@@ -29,8 +29,12 @@ define([
         this._uniforms = [];
         this._vertexAttributes = [];
 
+        this._dirtyUniforms = [];
+
         this._vertexShader = this.initVertexShader(vertexShaderSource);
         this._fragmentShader = this.initFragmentShader(fragmentShaderSource);
+
+
 
         this.initProgram(this._vertexShader,this._fragmentShader);
 
@@ -169,25 +173,45 @@ define([
 
         switch (type){
             case Type.BOOL:
-                return new UniformBool(name,type,location);
+                return new UniformBool(name,type,location,this);
             case Type.FLOAT:
-                return new UniformFloat(name,type,location);
+                return new UniformFloat(name,type,location,this);
             case Type.FLOAT_VEC2:
             case Type.FLOAT_VEC3:
-                return new UniformFloatVec3(name,type,location);
+                return new UniformFloatVec3(name,type,location,this);
             case Type.FLOAT_VEC4:
             case Type.FLOAT_MAT2:
             case Type.FLOAT_MAT3:
             case Type.FLOAT_MAT4:
-                return new UniformFloatMatrix44(name,type,location);
+                return new UniformFloatMatrix44(name,type,location,this);
         }
 
         throw new Error("A new Uniform derived class needs to be added to support this uniform type " + type);
     };
 
+    ShaderProgram.prototype.NotifyDirty = function(uniform){
+        this._dirtyUniforms.push(uniform);
+    };
+
+    ShaderProgram.prototype.getUniformByName = function(name){
+        for(var i = 0; i < this._uniforms.length; i++){
+            var u = this._uniforms[i];
+            if(u.Name == name){
+                return u;
+            }
+        }
+
+        return null;
+    };
 
     ShaderProgram.prototype.clean = function(context,drawState,sceneState){
         this.setDrawAutomaticUniforms(context,drawState,sceneState);
+
+        for(var i = 0; i < this._dirtyUniforms.length; ++i){
+            this._dirtyUniforms[i].Clean(this._gl);
+        }
+
+        this._dirtyUniforms = [];
     };
 
     return ShaderProgram;

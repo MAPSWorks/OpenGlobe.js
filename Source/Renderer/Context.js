@@ -91,6 +91,7 @@ define([
             }
 
 
+            //TODO textureCoord not supported
             var name = attribute.Name;
             var values = attribute.Values;  //[Vector3D,Vector3D,...]
             var vertices = [];

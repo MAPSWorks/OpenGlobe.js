@@ -43,7 +43,33 @@ define([
     ShaderProgramBase.LinkAutomaticUniforms = [];
     ShaderProgramBase.DrawAutomaticUniformFactories = [];
 
-    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['SunPositionFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['SunPositionUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['LightPropertiesUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['CameraLightPositionUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['CameraEyeUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['CameraEyeHighUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['CameraEyeLowUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['ModelViewPerspectiveMatrixRelativeToEyeUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['ModelViewMatrixRelativeToEyeUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['ModelViewPerspectiveMatrixUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['ModelViewOrthographicMatrixUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['ModelViewMatrixUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['ModelMatrixUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['ViewMatrixUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['PerspectiveMatrixUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['OrthographicMatrixUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['ViewportOrthographicMatrixUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['ViewportUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['InverseViewportDimensionsUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['ViewportTransformationMatrixUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['ModelZToClipCoordinatesUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['WindowToWorldNearPlaneUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['Wgs84HeightUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['PerspectiveNearPlaneDistanceUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['PerspectiveFarPlaneDistanceUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['HighResolutionSnapScaleUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['PixelSizePerDistanceUniformFactory']());
+
 
     ShaderProgramBase.ContainLinkAutomaticUniform = function(name){
         //TODO
