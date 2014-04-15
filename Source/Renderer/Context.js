@@ -46,6 +46,23 @@ define([
 
     };
 
+    defineProperties(Context.prototype,{
+        GL : {
+           get : function(){
+               return this._gl;
+           }
+        },
+
+        Viewport : {
+            get : function(){
+                return this._viewport;
+            },
+            set : function(x){
+                this._viewport = x;
+            }
+        }
+    });
+
     Context.prototype.CreateMeshBuffers = function(mesh,shaderAttributes,usageHint){
         var meshBuffers = {
             IndexBuffer : null,
@@ -74,6 +91,7 @@ define([
             }
 
 
+            //TODO textureCoord not supported
             var name = attribute.Name;
             var values = attribute.Values;  //[Vector3D,Vector3D,...]
             var vertices = [];
@@ -261,7 +279,7 @@ define([
             this._boundShaderProgram = program;
         }
 
-
+        drawState.ShaderProgram.clean(this,drawState,sceneState);
 
 
     };

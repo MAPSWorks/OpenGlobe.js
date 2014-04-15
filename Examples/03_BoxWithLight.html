@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <title>requirejs入门（一）</title>
+    <meta charset="utf-8">
+
+    <script id="shader-fs" type="x-shader/x-fragment">
+            #ifdef GL_ES
+            precision highp float;
+            #endif
+
+            //uniform vec3 og_sunPosition;
+            uniform vec3 u_color;
+
+            varying vec3 vLightWeighting;
+
+            void main(void) {
+                gl_FragColor = vec4(u_color * vLightWeighting,1.0);
+            }
+        </script>
+
+    <!-- Vertex Shader //-->
+    <script id="shader-vs" type="x-shader/x-vertex">
+            attribute vec3 aVertexPosition;
+            attribute vec3 aNormal;
+
+            uniform mat4 og_modelViewPerspectiveMatrix;
+            uniform mat4 og_modelViewMatrix;
+            uniform mat4 og_modelMatrix;
+            uniform mat4 og_viewMatrix;
+            uniform mat4 og_perspectiveMatrix;
+
+            uniform vec3 og_sunPosition;        //lightPosition
+
+            varying vec3 vLightWeighting;
+
+            void main(void) {
+                mat4 normalMatrix = transpose(inverse(og_modelViewMatrix));
+                vec3 normal = (normalMatrix * vec4(aNormal,1.0)).xyz;
+
+                vec3 uAmbientColor = vec3(0.2,0.2,0.2);
+                vec3 uLightColor = vec3(0.5,0.5,0.5);
+
+                float directionalLightWeighting = max(dot(normal, og_sunPosition - aVertexPosition), 0.0);
+                vLightWeighting = uAmbientColor + uLightColor * directionalLightWeighting;
+
+
+                vec4 position = vec4(aVertexPosition,1.0);
+                gl_Position = og_modelViewPerspectiveMatrix * position;
+            }
+        </script>
+
+    <!--<script src="Source/thirdparty/gl-matrix.js"></script>-->
+    <script src="../Source/thirdparty/webgl-utils.js"></script>
+
+</head>
+<body>
+<canvas id="canvas" width="680" height="680"></canvas>
+<script data-main="js/03_BoxWithLight" src="../require.js"></script>
+</body>
+</html>

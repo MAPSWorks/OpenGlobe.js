@@ -4,8 +4,8 @@
 
 define([
     'Renderer/GraphicsWindow',
-    'Renderer/ShaderProgram'],
-function(
+    'Renderer/ShaderProgram'
+],function(
     GraphicsWindow,
     ShaderProgram
     )
@@ -16,7 +16,6 @@ function(
         this._canvas = null;
         this._context = null;       //this is a gl context, not class context
         this.getContext(canvasName);
-
 
     };
 

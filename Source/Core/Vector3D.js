@@ -102,6 +102,10 @@ define(['Core/Utils','Core/defineProperties','Core/Vector2D'],function(Utils,def
         return Vector3D._divide(this,magnitude);
     };
 
+    Vector3D.prototype.ToArray = function(){
+        return [this.X,this.Y,this.Z];
+    };
+
     Vector3D.prototype.Cross = function(v){
         return new Vector3D(
             this.Y * v.Z - this.Z * v.Y,
