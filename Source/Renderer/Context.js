@@ -10,7 +10,8 @@ define([
     'Renderer/Device',
     'Renderer/VertexArray',
     'Renderer/VertexBufferAttribute',
-    'Renderer/Type'
+    'Renderer/Type',
+    'Renderer/RenderState'
 ],function(
     defineProperties,
     Color,
@@ -20,7 +21,8 @@ define([
     Device,
     VertexArray,
     VertexBufferAttribute,
-    Type
+    Type,
+    RenderState
     ){
    'use strict';
 
@@ -35,6 +37,7 @@ define([
         this._clearStencil = 0.0;
 
         this._boundShaderProgram = null;
+        this._renderState = new RenderState();
 
 
 
@@ -44,7 +47,10 @@ define([
         this._gl.clearDepth(this._clearDepth);
         this._gl.clearStencil(this._clearStencil);
 
+        this.ForceApplyRenderState(this._renderState);
     };
+
+
 
     defineProperties(Context.prototype,{
         GL : {
@@ -62,6 +68,21 @@ define([
             }
         }
     });
+
+    Context.prototype.ForceApplyRenderState = function(renderState){
+        //TODO
+        this.Enable(this._gl.DEPTH_TEST,renderState.DepthTest.Enabled);
+        this._gl.depthFunc(this._gl.LESS);
+
+    };
+
+    Context.prototype.Enable = function(enableCap,enable){
+        if(enable){
+            this._gl.enable(enableCap);
+        }else{
+            this._gl.disable(enableCap);
+        }
+    };
 
     Context.prototype.CreateMeshBuffers = function(mesh,shaderAttributes,usageHint){
         var meshBuffers = {
@@ -232,7 +253,7 @@ define([
     };
 
     Context.prototype.ApplyRenderState = function(renderState){
-
+        this.ApplyDepthTest(renderState.DepthTest);
     };
 
     Context.prototype.GetAttributeSize = function(type){
@@ -282,6 +303,20 @@ define([
         drawState.ShaderProgram.clean(this,drawState,sceneState);
 
 
+    };
+
+    Context.prototype.ApplyDepthTest = function(depthTest){
+        //TODO use TypeConverter to convert depthFunction and use EnableCap to create what kinds of Enable it is
+        if(this._renderState.DepthTest.Enabled != depthTest.Enabled){
+            this.Enable(this._gl.DEPTH_TEST,depthTest.Enabled);
+            this._renderState.DepthTest.Enabled = depthTest.Enabled;
+        }
+        if(depthTest.Enabled){
+            if(this._renderState.DepthTest.Function != depthTest.Function){
+                this._gl.depthFunc(this._gl.LESS);
+                this._renderState.DepthTest.Function = depthTest.Function;
+            }
+        }
     };
 
     return Context;

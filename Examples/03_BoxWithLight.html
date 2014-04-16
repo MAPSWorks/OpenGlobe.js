@@ -12,10 +12,13 @@
             //uniform vec3 og_sunPosition;
             uniform vec3 u_color;
 
-            varying vec3 vLightWeighting;
+            varying float vLightWeighting;
+            varying vec3 vColor;
 
             void main(void) {
-                gl_FragColor = vec4(u_color * vLightWeighting,1.0);
+                //gl_FragColor = vec4(u_color * vLightWeighting,1.0);
+                vec3 dd = u_color;
+                gl_FragColor = vec4(vColor,1.0);
             }
         </script>
 
@@ -25,28 +28,35 @@
             attribute vec3 aNormal;
 
             uniform mat4 og_modelViewPerspectiveMatrix;
+            uniform mat4 og_modelViewMatrixRelativeToEye;
             uniform mat4 og_modelViewMatrix;
             uniform mat4 og_modelMatrix;
             uniform mat4 og_viewMatrix;
             uniform mat4 og_perspectiveMatrix;
+            uniform mat4 og_normalMatrix;
 
             uniform vec3 og_sunPosition;        //lightPosition
 
-            varying vec3 vLightWeighting;
+            varying float vLightWeighting;
+            varying vec3 vColor;
 
             void main(void) {
-                mat4 normalMatrix = transpose(inverse(og_modelViewMatrix));
-                vec3 normal = (normalMatrix * vec4(aNormal,1.0)).xyz;
 
-                vec3 uAmbientColor = vec3(0.2,0.2,0.2);
-                vec3 uLightColor = vec3(0.5,0.5,0.5);
+                //vec3 normal = normalize((og_normalMatrix * vec4(aNormal,1.0)).xyz);
+                vec3 normal = normalize(aNormal);
+                vColor = normal;
+
+                vec3 uAmbientColor = vec3(0.3,0.3,0.3);
+                vec3 uLightColor = vec3(0.5,0.5,0.0);
+
+                vec4 position = og_modelViewMatrix * vec4(aVertexPosition,1.0);
+                vec4 lightPosition = og_modelViewMatrix * vec4(og_sunPosition,1.0);
 
                 float directionalLightWeighting = max(dot(normal, og_sunPosition - aVertexPosition), 0.0);
-                vLightWeighting = uAmbientColor + uLightColor * directionalLightWeighting;
+                vLightWeighting = directionalLightWeighting;
+                vColor = uAmbientColor + vColor * vLightWeighting;
 
-
-                vec4 position = vec4(aVertexPosition,1.0);
-                gl_Position = og_modelViewPerspectiveMatrix * position;
+                gl_Position = og_modelViewPerspectiveMatrix * vec4(aVertexPosition,1.0);
             }
         </script>
 

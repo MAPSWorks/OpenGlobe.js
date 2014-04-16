@@ -11,21 +11,21 @@
 
             //uniform vec3 og_sunPosition;
             uniform vec3 u_color;
-
+            varying float x;
             void main(void) {
-                gl_FragColor = vec4(u_color,1.0);
+                gl_FragColor = vec4(u_color*x,1.0);
             }
         </script>
 
     <!-- Vertex Shader //-->
     <script id="shader-vs" type="x-shader/x-vertex">
             attribute vec3 aVertexPosition;
-            attribute vec3 aNormal;
+            //attribute vec3 aNormal;
 
             uniform mat4 og_modelViewPerspectiveMatrix;
-
             void main(void) {
                 vec4 position = vec4(aVertexPosition,1.0);
+
                 gl_Position = og_modelViewPerspectiveMatrix * position;
             }
         </script>
