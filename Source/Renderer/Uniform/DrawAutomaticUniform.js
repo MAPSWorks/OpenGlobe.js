@@ -103,6 +103,13 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
         //this._uniform.Set(context.GL);
     };
 
+    var NormalMatrix = function(uniform){
+        this._uniform = uniform;
+    };
+    NormalMatrix.prototype.Set = function(context,drawState,sceneState){
+        this._uniform.Value = sceneState.ModelViewMatrix.Inverse().Transpose().ReadOnlyColumnMajorValues;
+    };
+
     var ModelMatrix = function(uniform){
         this._uniform = uniform;
     };
@@ -259,6 +266,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     DrawAutomaticUniform['ModelViewPerspectiveMatrix']   = ModelViewPerspectiveMatrix;
     DrawAutomaticUniform['ModelViewOrthographicMatrix']  = ModelViewOrthographicMatrix;
     DrawAutomaticUniform['ModelViewMatrix']              = ModelViewMatrix;
+    DrawAutomaticUniform['NormalMatrix']        = NormalMatrix;
     DrawAutomaticUniform['ModelMatrix']         = ModelMatrix;
     DrawAutomaticUniform['ViewMatrix']          = ViewMatrix;
     DrawAutomaticUniform['PerspectiveMatrix']   = PerspectiveMatrix;

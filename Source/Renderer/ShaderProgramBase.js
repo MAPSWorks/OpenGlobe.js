@@ -54,6 +54,7 @@ define([
     ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['ModelViewPerspectiveMatrixUniformFactory']());
     ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['ModelViewOrthographicMatrixUniformFactory']());
     ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['ModelViewMatrixUniformFactory']());
+    ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory.NormalMatrixUniformFactor());
     ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['ModelMatrixUniformFactory']());
     ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['ViewMatrixUniformFactory']());
     ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['PerspectiveMatrixUniformFactory']());

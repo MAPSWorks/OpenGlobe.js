@@ -59,7 +59,7 @@ require(
             shaderProgram.getUniformByName('u_color').Value = [0.5,0.5,0.5];
 
             this._sceneState = new SceneState();
-            this._sceneState.Camera.Eye = new Vector3D(1.0,3.0,2.0);
+            this._sceneState.Camera.Eye = new Vector3D(-5.0,0.0,0.0);
             this._clearState = new ClearState();
             this._clearState.Color = Color.FromRgba(0.0,0.0,0.0,1.0);
 
@@ -92,14 +92,14 @@ require(
 
             var positions = positionAttribute.Values;
             var corner = new Vector3D(0.5,0.5,0.5);
-            positions.push(new Vector3D(-corner.X, -corner.Y, -corner.Z));
-            positions.push(new Vector3D(corner.X, -corner.Y, -corner.Z));
-            positions.push(new Vector3D(corner.X, corner.Y, -corner.Z));
-            positions.push(new Vector3D(-corner.X, corner.Y, -corner.Z));
-            positions.push(new Vector3D(-corner.X, -corner.Y, corner.Z));
-            positions.push(new Vector3D(corner.X, -corner.Y, corner.Z));
-            positions.push(new Vector3D(corner.X, corner.Y, corner.Z));
-            positions.push(new Vector3D(-corner.X, corner.Y, corner.Z));
+            positions.push(new Vector3D(-corner.X, -corner.Y, -corner.Z ));
+            positions.push(new Vector3D(corner.X, -corner.Y, -corner.Z  ));
+            positions.push(new Vector3D(corner.X, corner.Y, -corner.Z   ));
+            positions.push(new Vector3D(-corner.X, corner.Y, -corner.Z  ));
+            positions.push(new Vector3D(-corner.X, -corner.Y, corner.Z  ));
+            positions.push(new Vector3D(corner.X, -corner.Y, corner.Z   ));
+            positions.push(new Vector3D(corner.X, corner.Y, corner.Z    ));
+            positions.push(new Vector3D(-corner.X, corner.Y, corner.Z   ));
 
 
             //
@@ -129,7 +129,7 @@ require(
 
             this._drawState = new DrawState(this._renderState,shaderProgram,va);
 
-            this._sceneState.Camera.zoomToTarget(1);
+            //this._sceneState.Camera.zoomToTarget(1);
         };
 
         Triangle.prototype.OnRenderFrame = function(){

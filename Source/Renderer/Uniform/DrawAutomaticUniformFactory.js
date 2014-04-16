@@ -97,6 +97,13 @@ define(['Renderer/Uniform/DrawAutomaticUniform'],function(DrawAutomaticUniform){
         return new ModelViewMatrixUniform(uniform);
     };
 
+    var NormalMatrixUniformFactor = function(){
+        this.Name = 'og_normalMatrix';
+    };
+    NormalMatrixUniformFactor.prototype.Create = function(uniform){
+        return new DrawAutomaticUniform.NormalMatrix(uniform);
+    }
+
     var ModelMatrixUniformFactory = function(){
         this.Name = 'og_modelMatrix';
     };
@@ -228,6 +235,7 @@ define(['Renderer/Uniform/DrawAutomaticUniform'],function(DrawAutomaticUniform){
     DrawAutomaticUniformFactory['ModelViewPerspectiveMatrixUniformFactory'] = ModelViewPerspectiveMatrixUniformFactory;
     DrawAutomaticUniformFactory['ModelViewOrthographicMatrixUniformFactory'] = ModelViewOrthographicMatrixUniformFactory;
     DrawAutomaticUniformFactory['ModelViewMatrixUniformFactory'] = ModelViewMatrixUniformFactory;
+    DrawAutomaticUniformFactory['NormalMatrixUniformFactor'] = NormalMatrixUniformFactor;
     DrawAutomaticUniformFactory['ModelMatrixUniformFactory'] = ModelMatrixUniformFactory;
     DrawAutomaticUniformFactory['ViewMatrixUniformFactory'] = ViewMatrixUniformFactory;
     DrawAutomaticUniformFactory['PerspectiveMatrixUniformFactory'] = PerspectiveMatrixUniformFactory;

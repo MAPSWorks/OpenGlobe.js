@@ -61,9 +61,12 @@ require(
             shaderProgram.getUniformByName('u_color').Value = [0.5,0.5,0.5];
 
             this._sceneState = new SceneState();
-            this._sceneState.Camera.Eye = new Vector3D(1.0,1.0,2.0);
+            this._sceneState.Camera.Eye = new Vector3D(8.0,8.0,8.0);
+            this._sceneState.Camera.Up = Vector3D.UnitY();
+            this._sceneState.SunPosition = new Vector3D(5.0,2,2.0);
+
             this._clearState = new ClearState();
-            this._clearState.Color = Color.FromRgba(0.0,0.0,0.0,1.0);
+            this._clearState.Color = Color.FromRgba(0.5,0.5,0.5,1.0);
 
 
             this._window.RenderFrameHandler = (function(that){
@@ -89,7 +92,7 @@ require(
             positions.push(new Vector3D(-1.0, -1.0,  1.0));
             positions.push(new Vector3D(1.0, -1.0,  1.0));
             positions.push(new Vector3D(1.0,  1.0,  1.0));
-            positions.push(new Vector3D(1.0,  1.0,  1.0));
+            positions.push(new Vector3D(-1.0,  1.0,  1.0));
 
             positions.push(new Vector3D(-1.0, -1.0, -1.0));
             positions.push(new Vector3D(-1.0,  1.0, -1.0));
@@ -152,17 +155,17 @@ require(
             //
             // 6 faces, 2 triangles each
             //
-            indices.AddTriangle(0,  1,  2);    // Top: plane z = corner.Z
+            indices.AddTriangle(0,  1,  2);    // front
             indices.AddTriangle(0,  2,  3);
-            indices.AddTriangle(4,  5,  6);    // Bottom: plane z = -corner.Z
+            indices.AddTriangle(4,  5,  6);    // back
             indices.AddTriangle(4,  6,  7);
-            indices.AddTriangle(8,  9,  10);    // Side: plane x = corner.X
+            indices.AddTriangle(8,  9,  10);    // top
             indices.AddTriangle(8,  10, 11);
-            indices.AddTriangle(12, 13, 14);    // Side: plane y = corner.Y
+            indices.AddTriangle(12, 13, 14);    // bottom
             indices.AddTriangle(12, 14, 15);
-            indices.AddTriangle(16, 17, 18);    // Side: plane x = -corner.X
+            indices.AddTriangle(16, 17, 18);    // right
             indices.AddTriangle(16, 18, 19);
-            indices.AddTriangle(20, 21, 22);    // Side: plane y = -corner.Y
+            indices.AddTriangle(20, 21, 22);    // left
             indices.AddTriangle(20, 22, 23);
 
 
@@ -172,11 +175,11 @@ require(
 
             var renderState = new RenderState();
             renderState.FacetCulling.Enabled = false;
-            renderState.DepthTest.Enabled = false;
+            renderState.DepthTest.Enabled = true;
 
             this._drawState = new DrawState(this._renderState,shaderProgram,va);
 
-            this._sceneState.Camera.zoomToTarget(1);
+            //this._sceneState.Camera.zoomToTarget(1);
         };
 
         Triangle.prototype.OnRenderFrame = function(){
