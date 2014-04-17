@@ -1,6 +1,6 @@
 OpenGlobe.js
 ===========
 
-This project is OpenGlobe implemented by javascript.
+Javascript Implementation of OpenGlobe.
 
 This project was created to study 3D Engine Design.

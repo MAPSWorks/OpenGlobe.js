@@ -9,6 +9,7 @@ define([
     'Renderer/Uniform/UniformFloat',
     'Renderer/Uniform/UniformFloatVec3',
     'Renderer/Uniform/UniformFloatMatrix44',
+    'Renderer/Uniform/UniformSampler2D',
     'Renderer/ShaderProgramBase'
 ],function(
     defineProperties,
@@ -18,6 +19,7 @@ define([
     UniformFloat,
     UniformFloatVec3,
     UniformFloatMatrix44,
+    UniformSampler2D,
     ShaderProgramBase
     )
 {
@@ -176,14 +178,16 @@ define([
                 return new UniformBool(name,type,location,this);
             case Type.FLOAT:
                 return new UniformFloat(name,type,location,this);
-            case Type.FLOAT_VEC2:
+            //case Type.FLOAT_VEC2:
             case Type.FLOAT_VEC3:
                 return new UniformFloatVec3(name,type,location,this);
-            case Type.FLOAT_VEC4:
-            case Type.FLOAT_MAT2:
-            case Type.FLOAT_MAT3:
+            //case Type.FLOAT_VEC4:
+            //case Type.FLOAT_MAT2:
+            //case Type.FLOAT_MAT3:
             case Type.FLOAT_MAT4:
                 return new UniformFloatMatrix44(name,type,location,this);
+            case Type.SAMPLER_2D:
+                return new UniformSampler2D(name,type,location,this);
         }
 
         throw new Error("A new Uniform derived class needs to be added to support this uniform type " + type);

@@ -48,6 +48,7 @@ function
 )
 {
     var Triangle = function(){
+        this._flag = false;
         this._name = 'test Trianlge';
         this._device = new Device("canvas");
         this._window = this._device.CreateWindow(680,680,'tttt');
@@ -89,6 +90,16 @@ function
 
         var va = this._window.Context.CreateVertexArray(mesh,shaderProgram.VertexAttributes,BufferHint.StaticDraw);
 
+        var image = new Image();
+        var texture = null;
+        var that = this;
+        image.onload = function(){
+            texture = that._device.CreateTexture2D(image);
+            that._window.Context.TextureUnits.GetTextureUnitByIndex(0).Texture = texture;
+            that._flag = true;
+        };
+        image.src = 'Examples/img/crate.gif';
+
         /////////////////////////////////////////////////////
 
         var renderState = new RenderState();
@@ -106,7 +117,9 @@ function
         context.Clear(this._clearState);
 
 
-        context.Draw(PrimitiveType.Triangles,this._drawState,this._sceneState);
+        if(this._flag){
+            context.Draw(PrimitiveType.Triangles,this._drawState,this._sceneState);
+        }
         console.log(this._name);
     };
 

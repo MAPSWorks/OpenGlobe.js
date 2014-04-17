@@ -4,10 +4,12 @@
 
 define([
     'Renderer/GraphicsWindow',
-    'Renderer/ShaderProgram'
+    'Renderer/ShaderProgram',
+    'Renderer/Uniform/Texture2D'
 ],function(
     GraphicsWindow,
-    ShaderProgram
+    ShaderProgram,
+    Texture2D
     )
 {
     'use strict';
@@ -57,6 +59,11 @@ define([
         this._context = this._canvas.getContext('experimental-webgl');
 
     };
+
+    Device.prototype.CreateTexture2D = function(image){
+        var texture2D = new Texture2D(image, this._context);
+        return texture2D;
+    }
 
     ///////////////////////////////////////////////
 

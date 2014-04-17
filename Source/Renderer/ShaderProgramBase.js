@@ -4,11 +4,13 @@
 define([
     'Core/defineProperties',
     'Renderer/Type',
-    'Renderer/Uniform/DrawAutomaticUniformFactory'
+    'Renderer/Uniform/DrawAutomaticUniformFactory',
+    'Renderer/Uniform/TextureUniform'
 ],function(
     defineProperties,
     Type,
-    DrawAutomaticUniformFactory
+    DrawAutomaticUniformFactory,
+    TextureUniform
     ){
     'use strict';
 
@@ -23,7 +25,7 @@ define([
         for(var i = 0; i < uniforms.length; i++){
             var uniform = uniforms[i];
             if(ShaderProgramBase.ContainLinkAutomaticUniform(uniform.Name)){
-                //ShaderProgramBase.GetLinkAutomaticUniform(uniform.Name).Set(uniform);
+                ShaderProgramBase.GetLinkAutomaticUniform(uniform.Name).Set(uniform);
             }else if(ShaderProgramBase.ContainDrawAutomaticUniformFactory(uniform.Name)){
                 this._drawAutomaticUniforms.push(ShaderProgramBase.GetDrawAutomaticUniformFactory(uniform.Name).Create(uniform));
             }
@@ -42,6 +44,13 @@ define([
 
     ShaderProgramBase.LinkAutomaticUniforms = [];
     ShaderProgramBase.DrawAutomaticUniformFactories = [];
+    ShaderProgramBase.TextureUnitsCount = 0;
+
+    for(var i = 0; i < ShaderProgramBase.TextureUnitsCount; i++){
+        ShaderProgramBase.LinkAutomaticUniforms.push(new TextureUniform(i));
+    }
+
+
 
     ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['SunPositionUniformFactory']());
     ShaderProgramBase.DrawAutomaticUniformFactories.push(new DrawAutomaticUniformFactory['LightPropertiesUniformFactory']());
@@ -73,11 +82,24 @@ define([
 
 
     ShaderProgramBase.ContainLinkAutomaticUniform = function(name){
-        //TODO
-        return false;
+        var uniform = ShaderProgramBase.GetLinkAutomaticUniform(name);
+        if(uniform !== null){
+            return true;
+        }else{
+            return false;
+        }
     };
     ShaderProgramBase.GetLinkAutomaticUniform = function(name){
+        var uniform = null;
+        for(var i = 0; i < ShaderProgramBase.LinkAutomaticUniforms.length; i++){
+            var u = ShaderProgramBase.LinkAutomaticUniforms[i];
+            if(u.Name == name){
+                uniform = u;
+                break;
+            }
+        }
 
+        return uniform;
     };
 
     ShaderProgramBase.ContainDrawAutomaticUniformFactory = function(name){
