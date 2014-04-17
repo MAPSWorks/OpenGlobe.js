@@ -68,10 +68,13 @@
 
             uniform vec3 og_sunPosition;
             //uniform vec3 u_color;
+            uniform sampler2D og_texture0;
+            varying vec3 vPosition;
 
             void main(void) {
                 //gl_FragColor = vec4(1.0,0.0,0.0, 1.0);
-                gl_FragColor = vec4(og_sunPosition,1.0);
+                vec3 texColor = texture2D(og_texture0, vec2(abs(vPosition.x),abs(vPosition.y))).rgb;
+                gl_FragColor = vec4(texColor,1.0);
             }
         </script>
 
@@ -80,8 +83,10 @@
             attribute vec3 aVertexPosition;
 
             //uniform mat4 og_modelViewPerspectiveMatrix;
+            varying vec3 vPosition;
 
             void main(void) {
+                vPosition = aVertexPosition;
                 gl_Position = vec4(aVertexPosition,1.0);
             }
         </script>

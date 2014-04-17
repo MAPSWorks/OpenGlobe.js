@@ -11,7 +11,9 @@ define([
     'Renderer/VertexArray',
     'Renderer/VertexBufferAttribute',
     'Renderer/Type',
-    'Renderer/RenderState'
+    'Renderer/RenderState',
+    'Renderer/Uniform/TextureUnits',
+    'Renderer/ShaderProgramBase'
 ],function(
     defineProperties,
     Color,
@@ -22,7 +24,9 @@ define([
     VertexArray,
     VertexBufferAttribute,
     Type,
-    RenderState
+    RenderState,
+    TextureUnits,
+    ShaderProgramBase
     ){
    'use strict';
 
@@ -38,7 +42,8 @@ define([
 
         this._boundShaderProgram = null;
         this._renderState = new RenderState();
-
+        this._textureUnits = new TextureUnits(gl);
+        ShaderProgramBase.TextureUnitsCount = this._textureUnits.Count;
 
 
 
@@ -65,6 +70,12 @@ define([
             },
             set : function(x){
                 this._viewport = x;
+            }
+        },
+
+        TextureUnits : {
+            get : function(){
+                return this._textureUnits;
             }
         }
     });
@@ -111,15 +122,15 @@ define([
                 continue;
             }
 
-
-            //TODO textureCoord not supported
             var name = attribute.Name;
-            var values = attribute.Values;  //[Vector3D,Vector3D,...]
+            var values = attribute.Values;  //[Vector3D,Vector3D,...] or [Vector2D,...]
             var vertices = [];
             for(var k = 0; k < values.length; k++){
                 vertices.push(values[k].X);
                 vertices.push(values[k].Y);
-                vertices.push(values[k].Z);
+                if(values[k].Z != undefined){
+                    vertices.push(values[k].Z);
+                }
             }
 
             var verticesBuffer = this.CreateVertexBuffer(vertices,usageHint);
@@ -156,7 +167,7 @@ define([
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices),gl.STATIC_DRAW);
 
         return verticesBuffer;
-    }
+    };
 
 
 
@@ -248,6 +259,7 @@ define([
 
         this.ApplyShaderProgram(drawState,sceneState);
 
+        this._textureUnits.Clean();
         //TODO
 
     };
