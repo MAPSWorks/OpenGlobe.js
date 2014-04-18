@@ -33,8 +33,98 @@ define([
 
         this._dirtyUniforms = [];
 
-        this._vertexShader = this.initVertexShader(vertexShaderSource);
-        this._fragmentShader = this.initFragmentShader(fragmentShaderSource);
+        var builtinConstants = '' +
+            '#ifdef GL_ES;\n' +
+            'precision highp float;\n' +
+            '#endif;\n' +
+            'const float og_E = ' + Math.E + ';\n' +
+            'const float og_pi = ' + Math.PI + ';\n' +
+            'const float og_oneOverPi = ' + 1.0/Math.PI + ';\n' +
+            'const float og_piOverTwo = ' + Math.PI/2.0 + ';\n' +
+            'const float og_piOverThree = ' + Math.PI/3.0 + ';\n' +
+            'const float og_piOverFour = ' + Math.PI/4.0 + ';\n' +
+            'const float og_piOverSix = ' + Math.PI/6.0 + ';\n' +
+            'const float og_threePiOver2 = ' + 3 * Math.PI/2.0 + ';\n' +
+            'const float og_twoPi = ' + 2 * Math.PI + ';\n' +
+            'const float og_oneOverTwoPi = ' + 1.0 /(2 * Math.PI) + ';\n' +
+            'const float og_radiansPerDegree = ' + Math.PI/180.0 + ';\n' +
+            'const float og_maximumFloat = ' + Number.MAX_VALUE + ';\n' +
+            'const float og_minimumFloat = ' + Number.MIN_VALUE + ';\n';
+        var builtinFunctions = '' +
+            '//\n' +
+            '// (C) Copyright 2010 Patrick Cozzi and Kevin Ring\n' +
+            '// Distributed under the MIT License.\n' +
+            '// See License.txt or http://www.opensource.org/licenses/mit-license.php.\n' +
+            '//\n' +
+            '\n' +
+            'vec4 og_ClipToWindowCoordinates(vec4 v, mat4 viewportTransformationMatrix)\n' +
+            '{\n' +
+            '    v.xyz /= v.w;                                                  // normalized device coordinates\n' +
+            '    v.xyz = (viewportTransformationMatrix * vec4(v.xyz, 1.0)).xyz; // window coordinates\n' +
+            '    return v;\n' +
+            '}\n' +
+
+            'float og_distanceToLine(vec2 f, vec2 p0, vec2 p1)\n' +
+            '{\n' +
+            '    vec2 l = f - p0;\n' +
+            '    vec2 d = p1 - p0;\n' +
+            '\n' +
+            '    //\n' +
+            '    // Closed point on line to f\n' +
+            '    //\n' +
+            '    vec2 p = p0 + (d * (dot(l, d) / dot(d, d)));\n' +
+            '    return distance(f, p);\n' +
+            '}\n' +
+
+            '//\n' +
+            '// Emulates double precision subtraction.\n' +
+            '// Returns left - right.\n' +
+            '//\n' +
+            'vec3 og_EmulatedDoubleSubtract(\n' +
+            'vec3 leftHigh,  vec3 leftLow,\n' +
+            'vec3 rightHigh, vec3 rightLow)\n' +
+            '{\n' +
+            '    vec3 t1 = leftLow - rightLow;\n' +
+            '    vec3 e = t1 - leftLow;\n' +
+            '    vec3 t2 = ((-rightLow - e) + (leftLow - (t1 - e))) + leftHigh - rightHigh;\n' +
+            '    vec3 highDifference = t1 + t2;\n' +
+            '    vec3 lowDifference = t2 - (highDifference - t1);\n' +
+            '\n' +
+            '    return highDifference + lowDifference;\n' +
+            '}\n' +
+
+            '//\n' +
+            '// Typical inputs:\n' +
+            '//\n' +
+            '//   in vec3 positionHigh;\n' +
+            '//   in vec3 positionLow;\n' +
+            '//   uniform vec3 og_cameraEyeHigh;\n' +
+            '//   uniform vec3 og_cameraEyeLow;\n' +
+            '//   uniform mat4 og_modelViewPerspectiveMatrixRelativeToEye;\n' +
+            '//\n' +
+            'vec4 ogTransformEmulatedDoublePosition(\n' +
+            'vec3 positionHigh,  vec3 positionLow,\n' +
+            'vec3 cameraEyeHigh, vec3 cameraEyeLow,\n' +
+            'mat4 modelViewPerspectiveMatrixRelativeToEye)\n' +
+            '{\n' +
+            '    vec3 positionEye = og_EmulatedDoubleSubtract(positionHigh, positionLow, cameraEyeHigh, cameraEyeLow);\n' +
+            '    return modelViewPerspectiveMatrixRelativeToEye * vec4(positionEye, 1.0);\n' +
+            '}\n' +
+
+            'vec4 ogTransformEmulatedDoublePosition(\n' +
+            'vec3 positionHigh,  vec3 positionLow,\n' +
+            'vec3 cameraEyeHigh, vec3 cameraEyeLow,\n' +
+            'mat4 modelViewPerspectiveMatrixRelativeToEye,\n' +
+            'out vec3 positionInModelCoordinates)\n' +
+            '{\n' +
+            '    vec3 positionEye = og_EmulatedDoubleSubtract(positionHigh, positionLow, cameraEyeHigh, cameraEyeLow);\n' +
+            '\n' +
+            '    positionInModelCoordinates = cameraEyeHigh + positionEye;\n' +
+            '    return modelViewPerspectiveMatrixRelativeToEye * vec4(positionEye, 1.0);\n' +
+            '}\n';
+
+        this._vertexShader = this.initVertexShader(builtinConstants + builtinFunctions + vertexShaderSource);
+        this._fragmentShader = this.initFragmentShader(builtinConstants + builtinFunctions +fragmentShaderSource);
 
 
 
