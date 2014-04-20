@@ -19,8 +19,8 @@ define(['Renderer/Uniform/DrawAutomaticUniform'],function(DrawAutomaticUniform){
         this.Name = 'og_diffuseSpecularAmbientShininess';
     };
     LightPropertiesUniformFactory.prototype.Create = function(uniform){
-        var LightProperties = DrawAutomaticUniform.LightProperties;
-        return new LightProperties(uniform);
+        var LightPropertie = DrawAutomaticUniform.LightProperties;
+        return new LightPropertie(uniform);
     };
 
     var CameraLightPositionUniformFactory = function(){

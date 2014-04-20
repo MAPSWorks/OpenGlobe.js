@@ -6,13 +6,16 @@
 
     <script id="shader-fs" type="x-shader/x-fragment">
             varying vec3 worldPosition;
-            out vec3 fragmentColor;
+            //out vec3 fragmentColor;
 
-            uniform mat4x2 og_modelZToClipCoordinates;
+
+            //uniform mat4x2 og_modelZToClipCoordinates;
+            uniform mat4 og_modelZToClipCoordinates;
             uniform vec4 og_diffuseSpecularAmbientShininess;
             uniform sampler2D og_texture0;
             uniform vec3 og_cameraLightPosition;
             uniform vec3 og_cameraEye;
+
             uniform vec3 u_cameraEyeSquared;
             uniform vec3 u_globeOneOverRadiiSquared;
             uniform bool u_useAverageDepth;
@@ -51,9 +54,9 @@
                 return Intersection(true, min(root1, root2), max(root1, root2));
             }
 
-            float ComputeWorldPositionDepth(vec3 position, mat4x2 modelZToClipCoordinates)
+            float ComputeWorldPositionDepth(vec3 position, mat4 modelZToClipCoordinates)
             {
-                vec2 v = modelZToClipCoordinates * vec4(position, 1);   // clip coordinates
+                vec4 v = modelZToClipCoordinates * vec4(position, 1);   // clip coordinates
                 v.x /= v.y;                                             // normalized device coordinates
                 v.x = (v.x + 1.0) * 0.5;
                 return v.x;
@@ -97,14 +100,15 @@
                     vec3 toLight = normalize(og_cameraLightPosition - position);
                     vec3 toEye = normalize(og_cameraEye - position);
                     float intensity = LightIntensity(normal, toLight, toEye, og_diffuseSpecularAmbientShininess);
-                    fragmentColor = intensity * texture(og_texture0, ComputeTextureCoordinates(normal)).rgb;
-
+                    //fragmentColor = intensity * texture(og_texture0, ComputeTextureCoordinates(normal)).rgb;
+                    vec3 fColor = intensity * texture2D(og_texture0, ComputeTextureCoordinates(normal)).rgb;
+                    gl_FragColor = vec4(fColor,1.0);
                     if (u_useAverageDepth)
                     {
                         position = og_cameraEye + (mix(i.NearTime, i.FarTime, 0.5) * rayDirection);
                     }
 
-                    gl_FragDepth = ComputeWorldPositionDepth(position, og_modelZToClipCoordinates);
+                    //gl_FragDepth = ComputeWorldPositionDepth(position, og_modelZToClipCoordinates);
                 }
                 else
                 {

@@ -84,7 +84,7 @@ require(
             var that = this;
             image.onload = function(){
                 that._texture = that._device.CreateTexture2D(image);
-                that._globe.Texure = that._texture;
+                that._globe.Texture = that._texture;
                 that._window.Context.TextureUnits.GetTextureUnitByIndex(0).Texture = texture;
                 that._flag = true;
             };

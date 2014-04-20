@@ -8,6 +8,7 @@ define([
     'Renderer/Uniform/UniformBool',
     'Renderer/Uniform/UniformFloat',
     'Renderer/Uniform/UniformFloatVec3',
+    'Renderer/Uniform/UniformFloatVec4',
     'Renderer/Uniform/UniformFloatMatrix44',
     'Renderer/Uniform/UniformSampler2D',
     'Renderer/ShaderProgramBase'
@@ -18,6 +19,7 @@ define([
     UniformBool,
     UniformFloat,
     UniformFloatVec3,
+    UniformFloatVec4,
     UniformFloatMatrix44,
     UniformSampler2D,
     ShaderProgramBase
@@ -185,7 +187,14 @@ define([
         gl.linkProgram(this._program);
 
         if(!gl.getProgramParameter(this._program, gl.LINK_STATUS)){
+            // An error occurred while linking
             alert("Counld not initialise shaders");
+
+            var lastError = gl.getProgramInfoLog(this._program);
+            alert("Error in program linking:" + lastError);
+
+            gl.deleteProgram(this._program);
+            return null;
         }
 
         this._uniforms = this.findUniforms(this._program);
@@ -271,7 +280,8 @@ define([
             //case Type.FLOAT_VEC2:
             case Type.FLOAT_VEC3:
                 return new UniformFloatVec3(name,type,location,this);
-            //case Type.FLOAT_VEC4:
+            case Type.FLOAT_VEC4:
+                return new UniformFloatVec4(name,type,location,this);
             //case Type.FLOAT_MAT2:
             //case Type.FLOAT_MAT3:
             case Type.FLOAT_MAT4:

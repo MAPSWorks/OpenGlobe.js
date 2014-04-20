@@ -36,7 +36,8 @@ define([
 
     ShaderProgramBase.prototype.setDrawAutomaticUniforms = function(context,drawState,sceneState){
         for(var i = 0; i < this._drawAutomaticUniforms.length; i++){
-            this._drawAutomaticUniforms[i].Set(context,drawState,sceneState);
+            var drawAutoUni = this._drawAutomaticUniforms[i];
+            drawAutoUni.Set(context,drawState,sceneState);
         }
     };
 
