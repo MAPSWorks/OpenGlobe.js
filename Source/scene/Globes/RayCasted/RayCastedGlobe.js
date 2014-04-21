@@ -120,7 +120,7 @@ define([
             this._primitiveType = mesh.PrimitiveType;
             this._renderState.FacetCulling.FrontFaceWindingOrder = mesh.FrontFaceWindingOrder;
 
-            this._drawState.ShaderProgram.getUniformByName('').Value =
+            this._drawState.ShaderProgram.getUniformByName('u_globeOneOverRadiiSquared').Value =
                 this.Shape.OneOverRadiiSquared.ToArray();
 
             this._dirty = false;
@@ -156,7 +156,7 @@ define([
 
         Shape : {
             get : function(){
-                return this._shade;
+                return this._shape;
             },
             set : function(x){
                 this._dirty = true;
