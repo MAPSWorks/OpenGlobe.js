@@ -20,7 +20,7 @@ define([
     var Mesh = function(){
         this._attributes = {};      //VertexAttributes
         this._indices = null;       //Indices
-        this._primitiveType = PrimitiveType.Lines;
+        this._primitiveType = PrimitiveType.Triangles;
         this._frontFaceWindingOrder = WindingOrder.Counterclockwise;
     };
 
