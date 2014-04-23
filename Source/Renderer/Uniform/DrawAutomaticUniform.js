@@ -20,7 +20,7 @@ define(['Core/Matrix4D','Core/Ellipsoid'],function(Matrix4D,Ellipsoid){
     var LightProperties = function(uniform){
         this._uniform = uniform;
     };
-    LightProperties.Set = function(context,drawState,sceneState){
+    LightProperties.prototype.Set = function(context,drawState,sceneState){
         this._uniform.Value = [
             sceneState.DiffuseIntensity,
             sceneState.SpecularIntensity,

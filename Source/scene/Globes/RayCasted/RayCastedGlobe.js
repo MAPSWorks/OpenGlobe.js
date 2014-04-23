@@ -86,7 +86,7 @@ define([
             mesh.Indices = indices;
 
             var positions = positionAttribute.Values;
-            var corner = new Vector3D(0.5,0.5,0.5);
+            var corner = new Vector3D(2,2,2);
             positions.push(new Vector3D(-corner.X, -corner.Y, -corner.Z ));
             positions.push(new Vector3D(corner.X, -corner.Y, -corner.Z  ));
             positions.push(new Vector3D(corner.X, corner.Y, -corner.Z   ));
