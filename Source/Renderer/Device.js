@@ -22,7 +22,7 @@ define([
     };
 
     Device.prototype.CreateWindow = function(width, height, title){
-        return new GraphicsWindow(this._context,width,height,title);
+        return new GraphicsWindow(this._context,this._canvas,width,height,title);
     };
 
     Device.prototype.CreateProgram = function(vertexShaderSource,fragmentShaderSource){
