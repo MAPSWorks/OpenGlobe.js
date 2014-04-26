@@ -394,7 +394,7 @@ define(["Core/defineProperties"],function(defineProperties){
 
     Matrix4D.MultiplyMatrix4DAndVector3D = function(matrix, vector){
         var values = matrix.ReadOnlyColumnMajorValues;
-
+        //TODO vector4D
         var x =
             values[0] * vector.X +
             values[4] * vector.Y +
