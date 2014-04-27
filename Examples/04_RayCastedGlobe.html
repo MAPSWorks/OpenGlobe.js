@@ -100,7 +100,7 @@
                     vec3 toLight = normalize(og_cameraLightPosition - position);
                     vec3 toEye = normalize(og_cameraEye - position);
                     float intensity = LightIntensity(normal, toLight, toEye, og_diffuseSpecularAmbientShininess);
-                    vec3 fragmentColor = intensity * texture2D(og_texture0, ComputeTextureCoordinates(normal)).rgb;
+                    vec3 fragmentColor = (intensity + vec3(0.6,0.64,0.64)) * texture2D(og_texture0, ComputeTextureCoordinates(normal)).rgb;
 
                     gl_FragColor = vec4(intensity * fragmentColor,1.0);
 

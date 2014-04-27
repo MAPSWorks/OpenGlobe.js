@@ -392,7 +392,6 @@ define([
         var rangeWindowRatio = movement.Height / this._window.Height;
         this._range -= zoomRate * rangeWindowRatio;
 
-        //console.log('zoom');
     };
 
 
