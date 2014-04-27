@@ -31,17 +31,17 @@ define(['Core/defineProperties','Core/Vector3D'],function(defineProperties,Vecto
             }
         },
 
-        Column0Row0 : { get : function(){return this._value[0];} },
-        Column0Row1 : { get : function(){return this._value[1];} },
-        Column0Row2 : { get : function(){return this._value[2];} },
+        Column0Row0 : { get : function(){return this._values[0];} },
+        Column0Row1 : { get : function(){return this._values[1];} },
+        Column0Row2 : { get : function(){return this._values[2];} },
 
-        Column1Row0 : { get : function(){return this._value[3];} },
-        Column1Row1 : { get : function(){return this._value[4];} },
-        Column1Row2 : { get : function(){return this._value[5];} },
+        Column1Row0 : { get : function(){return this._values[3];} },
+        Column1Row1 : { get : function(){return this._values[4];} },
+        Column1Row2 : { get : function(){return this._values[5];} },
 
-        Column2Row0 : { get : function(){return this._value[6];} },
-        Column2Row1 : { get : function(){return this._value[7];} },
-        Column2Row2 : { get : function(){return this._value[8];} },
+        Column2Row0 : { get : function(){return this._values[6];} },
+        Column2Row1 : { get : function(){return this._values[7];} },
+        Column2Row2 : { get : function(){return this._values[8];} },
 
 
         ReadOnlyColumnMajorValues : {
@@ -60,7 +60,7 @@ define(['Core/defineProperties','Core/Vector3D'],function(defineProperties,Vecto
             this.Column2Row0, this.Column2Row1, this.Column2Row2);
     };
 
-    Matrix3D.MultiplyMatrix3D = function(matrix, vector){
+    Matrix3D.MultiplyMatrix3DAndVector3D = function(matrix, vector){
         var values = matrix.ReadOnlyColumnMajorValues;
 
         var x =

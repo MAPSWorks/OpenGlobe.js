@@ -26,6 +26,10 @@ define([],function(){
                     {X:event.clientX,Y:event.clientY},
                     event.button
                 );
+
+                if(event.button == 2){
+                    return false;
+                }
             };
             return handle;
         })(this);
@@ -38,6 +42,21 @@ define([],function(){
             return handle;
         })(this);
 
+        document.oncontextmenu = function (event){
+            if(window.event){
+                event = window.event;
+            }try{
+                var the = event.srcElement;
+                if (!((the.tagName == "INPUT" && the.type.toLowerCase() == "text") || the.tagName == "TEXTAREA")){
+                    return false;
+                }
+                return true;
+            }catch (e){
+                return false;
+            }
+
+        }
+
         //document.onkeydown = handleKeyDown;
         //document.onkeyup = handleKeyUp;
 
@@ -49,7 +68,7 @@ define([],function(){
 
             handler(point,button);
         }
-        console.log('down');
+        //console.log('down');
     };
 
     Mouse.prototype.OnButtonUp = function(point, button){
@@ -58,7 +77,7 @@ define([],function(){
 
             handler(point,button);
         }
-        console.log('up');
+        //console.log('up');
     };
 
     Mouse.prototype.OnMove = function(point){
@@ -67,7 +86,7 @@ define([],function(){
 
             handler(point);
         }
-        console.log('move');
+        //console.log('move');
     };
 
     Mouse.prototype.AddMouseDownHandler = function(handle){

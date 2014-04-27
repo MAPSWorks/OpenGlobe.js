@@ -30,7 +30,8 @@ require(
         'Renderer/VertexAttribute',
         'Renderer/Indices',
         'Renderer/DrawState',
-        'Scene/Globes/RayCasted/RayCastedGlobe'
+        'Scene/Globes/RayCasted/RayCastedGlobe',
+        'Scene/Cameras/CameraLookAtPoint'
     ],
     function
         (
@@ -52,9 +53,12 @@ require(
             VertexAttribute,
             Indices,
             DrawState,
-            RayCastedGlobe
+            RayCastedGlobe,
+            CameraLookAtPoint
             )
     {
+        'use strict';
+
         var GlobeRayCasting = function(){
             this._flag = false;
             var globeShape = Ellipsoid.ScaledWgs84;
@@ -66,6 +70,12 @@ require(
             this._sceneState.Camera.Eye = new Vector3D(0,-8.0,0);
             //this._sceneState.Camera.Up = Vector3D.UnitZ();
             //this._sceneState.SunPosition = new Vector3D(5.0,2,2.0);
+
+            this._cameraController = new CameraLookAtPoint(
+                this._sceneState.Camera,
+                this._window,
+                globeShape
+            );
 
             this._clearState = new ClearState();
             this._clearState.Color = Color.FromRgba(0.5,0.5,0.5,1.0);

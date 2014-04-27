@@ -1,7 +1,7 @@
 /**
  * Created by luosong on 2014/4/8.
  */
-define(["Core/defineProperties"],function(defineProperties){
+define(["Core/defineProperties",'Core/Vector4D'],function(defineProperties,Vector4D){
     "use strict";
 
     var Matrix4D = function(
@@ -392,7 +392,7 @@ define(["Core/defineProperties"],function(defineProperties){
             col0row3, col1row3, col2row3, col3row3);
     };
 
-    Matrix4D.MultiplyMatrix4DAndVector3D = function(matrix, vector){
+    Matrix4D.MultiplyMatrix4DAndVector4D = function(matrix, vector){
         var values = matrix.ReadOnlyColumnMajorValues;
         //TODO vector4D
         var x =
