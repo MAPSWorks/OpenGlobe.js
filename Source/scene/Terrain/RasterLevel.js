@@ -36,41 +36,43 @@ define([
     };
 
     defineProperties(RasterLevel.prototype,{
-        Source : function(){
+        Source : {
+            get : function(){
             return this._source;
-        },
+        }},
 
-        Level : function(){
+        Level : {
+            get : function(){
             return this._level;
-        },
-        Extent : function(){
+        }},
+        Extent : {
+            get : function(){
             return this._extent;
-        },
-        LongitudePosts : function(){
+        }},
+        LongitudePosts : {
+            get : function(){
             return this._longitudePosts;
-        },
-        LatitudePosts : function(){
+        }},
+        LatitudePosts : {
+            get : function(){
             return this._latitudePosts;
-        },
-        LongitudePostsPerTile : function(){
+        }},
+        LongitudePostsPerTile : {
+            get : function(){
             return this._longitudePostsPerTile;
-        },
-        LatitudePostsPerTile : function(){
+        }},
+        LatitudePostsPerTile : {
+            get : function(){
             return this._latitudePostsPerTile;
-        },
-        PostDeltaLongitude : function(){
+        }},
+        PostDeltaLongitude : {
+            get : function(){
             return this._postDeltaLongitude;
-        },
-        PostDeltaLatitude : function(){
+        }},
+        PostDeltaLatitude : {
+            get : function(){
             return this._postDeltaLatitude;
-        },
-        LongitudeToIndex : function(){
-            return this._name;
-        },
-
-        name : function(){
-            return this._name;
-        }
+        }}
     });
 
     RasterLevel.prototype.LongitudeToIndex = function(longitude){

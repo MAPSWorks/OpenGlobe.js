@@ -20,18 +20,18 @@ define([
         this._activeTiles = {};
     };
 
-    defineProperties(RasterSource.prototype,{
-        Level : {
-            get : function(){
-                return this._level;
-            }
-        },
-        Extent : {
-            get : function(){
-                return this._extent;
-            }
-        }
-    });
+//    defineProperties(RasterSource.prototype,{
+//        Level : {
+//            get : function(){
+//                return this._level;
+//            }
+//        },
+//        Extent : {
+//            get : function(){
+//                return this._extent;
+//            }
+//        }
+//    });
 
     RasterSource.prototype.GetTile = function(identifier){
         var tile = this._activeTiles[identifier];

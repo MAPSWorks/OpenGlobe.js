@@ -17,9 +17,8 @@ define([
     'use strict';
 
     var EsriRestImagery = function(url){
-
-
         this.NumberOfLevels = 16;
+
         this.LevelZeroDeltaLongitudeDegrees = 180.0;
         this.LevelZeroDeltaLatitudeDegrees = 180.0;
 
@@ -30,10 +29,10 @@ define([
         this._levels = new Array(self.NumberOfLevels);      //RasterLevel
         this._levelsCollection = this._levels;
 
-        var deltaLongitude = Self.LevelZeroDeltaLongitudeDegrees;
-        var deltaLatitude = self.LevelZeroDeltaLatitudeDegrees;
+        var deltaLongitude = this.LevelZeroDeltaLongitudeDegrees;
+        var deltaLatitude = this.LevelZeroDeltaLatitudeDegrees;
 
-        for(var i = 0; i < self._levels.Count; ++i){
+        for(var i = 0; i < this._levels.Count; ++i){
             var longitudePosts = Math.round(360.0 / deltaLongitude) * this.TileLongitudePosts + 1;
             var latitudePosts = Math.round(180.0 / deltaLatitude) * this.TileLatitudePosts + 1;
             this._levels[i] = new RasterLevel(this, i, this._extent, longitudePosts, latitudePosts, this.TileLongitudePosts, this.TileLatitudePosts);
@@ -46,7 +45,7 @@ define([
     EsriRestImagery.prototype = new RasterSource();
     EsriRestImagery.prototype.constructor = EsriRestImagery;
 
-    EsriRestImagery(EsriRestImagery.prototype,{
+    defineProperties(EsriRestImagery.prototype,{
 
         Extent : {
             get : function(){
@@ -66,6 +65,14 @@ define([
         TileLatitudePosts : {
             get : function(){
                 return 512;
+            }
+        },
+        NumberOfLevels : {
+            get : function(){
+                return 16;
+            },
+            set : function(x){
+                this._numberOfLevels = 16;
             }
         }
     });

@@ -29,7 +29,7 @@ define([
         this._clipmapPosts = clipmapPosts;
         this._clipmapSegments = clipmapPosts - 1;
 
-        var clipmapLevels = _terrainSource.Levels.Count;
+        var clipmapLevels = this._terrainSource.Levels.Count;
         this._clipmapLevels = new Array(clipmapLevels);
 
         for(var i = 0; i < self._clipmapLevels.Count; ++i){

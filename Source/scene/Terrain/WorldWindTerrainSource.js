@@ -54,9 +54,9 @@ define([
     WorldWindTerrainSource.prototype.constructor = WorldWindTerrainSource;
 
     defineProperties(WorldWindTerrainSource.prototype,{
-        Level : {
+        Levels : {
             get : function(){
-                return this._level;
+                return this._levels;
             }
         },
         Extent : {
