@@ -30,7 +30,8 @@ require(
         'Renderer/VertexAttribute',
         'Renderer/Indices',
         'Renderer/DrawState',
-        'Scene/Globes/RayCasted/RayCastedGlobe'
+        'Scene/Globes/RayCasted/RayCastedGlobe',
+        'Scene/Cameras/CameraLookAtPoint'
     ],
     function
         (
@@ -52,9 +53,12 @@ require(
             VertexAttribute,
             Indices,
             DrawState,
-            RayCastedGlobe
+            RayCastedGlobe,
+            CameraLookAtPoint
             )
     {
+        'use strict';
+
         var GlobeRayCasting = function(){
             this._flag = false;
             var globeShape = Ellipsoid.ScaledWgs84;
@@ -63,9 +67,15 @@ require(
             this._window = this._device.CreateWindow(680,680,'tttt');
 
             this._sceneState = new SceneState();
-            this._sceneState.Camera.Eye = new Vector3D(8.0,8.0,8.0);
-            this._sceneState.Camera.Up = Vector3D.UnitY();
-            this._sceneState.SunPosition = new Vector3D(5.0,2,2.0);
+            this._sceneState.Camera.Eye = new Vector3D(0,-8.0,0);
+            //this._sceneState.Camera.Up = Vector3D.UnitZ();
+            //this._sceneState.SunPosition = new Vector3D(5.0,2,2.0);
+
+            this._cameraController = new CameraLookAtPoint(
+                this._sceneState.Camera,
+                this._window,
+                globeShape
+            );
 
             this._clearState = new ClearState();
             this._clearState.Color = Color.FromRgba(0.5,0.5,0.5,1.0);
@@ -80,21 +90,19 @@ require(
             //load image
             this._texture = null;
             var image = new Image();
-            var texture = null;
             var that = this;
             image.onload = function(){
                 that._texture = that._device.CreateTexture2D(image);
                 that._globe.Texture = that._texture;
-                that._window.Context.TextureUnits.GetTextureUnitByIndex(0).Texture = texture;
+                that._window.Context.TextureUnits.GetTextureUnitByIndex(0).Texture = that._texture;
                 that._flag = true;
             };
-            image.src = 'img/crate.gif';
+            image.src = 'data/Imagery/NASA/world_topo_bathy_200411_3x5400x2700.jpg';
 
             this._globe = new RayCastedGlobe(this._device,this._window.Context);
             this._globe.Shape = globeShape;
-            this._globe.Texure = this._texture;
 
-            this._sceneState.Camera.zoomToTarget(globeShape.MaximumRadius);
+            this._sceneState.Camera.zoomToTarget(globeShape.MaximumRadius * 1.2);
         };
 
         GlobeRayCasting.prototype.OnRenderFrame = function(){
@@ -106,7 +114,7 @@ require(
                 this._globe.Render(context,this._sceneState);
             }
 
-            console.log(this._name);
+            //console.log(this._name);
         };
 
 

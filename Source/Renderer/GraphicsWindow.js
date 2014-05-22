@@ -3,14 +3,16 @@
  */
 define([
     'Core/defineProperties',
-    'Renderer/Context'
+    'Renderer/Context',
+    'Renderer/Input/Mouse'
 ],function(
     defineProperties,
-    Context
+    Context,
+    Mouse
     ){
     'use strict';
 
-    var GraphicsWindow = function(gl, width, height, title){
+    var GraphicsWindow = function(gl, canvas, width, height, title){
 
         this.ResizeHandler = null;
         this.UpdateFrameHandler = null;
@@ -20,11 +22,12 @@ define([
         this.PostRenderFrameHandler = null;
 
         this._context = new Context(gl, width, height);
+        this._canvas = canvas;
         this._width = width;
         this._height = height;
         this._title = title;
 
-        this.Mouse = null;
+        this._mouse = new Mouse(this._canvas);
         this.Keyboard = null;
 
     };
@@ -51,6 +54,12 @@ define([
         Title:{
             get : function(){
                 return this._title;
+            }
+        },
+
+        Mouse:{
+            get : function(){
+                return this._mouse;
             }
         }
 

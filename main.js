@@ -24,7 +24,8 @@ require(
     'Renderer/Mesh',
     'Renderer/VertexAttribute',
     'Renderer/Indices',
-    'Renderer/DrawState'
+    'Renderer/DrawState',
+    'Renderer/Input/Mouse'
 ],
 function
 (
@@ -44,7 +45,8 @@ function
     Mesh,
     VertexAttribute,
     Indices,
-    DrawState
+    DrawState,
+    Mouse
 )
 {
     var Triangle = function(){
@@ -58,6 +60,7 @@ function
         this._clearState = new ClearState();
         this._clearState.Color = Color.FromRgba(0.0,0.0,0.0,1.0);
 
+        //this._mouse = new Mouse(this._device._canvas);
 
         this._window.RenderFrameHandler = (function(that){
             var triangle = that;
